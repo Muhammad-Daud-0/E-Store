@@ -1,0 +1,174 @@
+@model Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+    var categories = ViewData["Categories"] as List<Category>;
+}
+
+<!-- Page Header -->
+<div class="mb-4 text-start">
+    <h1 class="fw-bold text-dark mb-0">
+        <i class="fas fa-edit text-primary me-2"></i>Edit Product
+    </h1>
+    <p class="text-muted small mb-0">Update item pricing, stock quantity, and catalog grouping details</p>
+</div>
+
+<!-- Form Container -->
+<div class="row text-start g-4">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+            <div class="card-header bg-light border-bottom p-3">
+                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center">
+                    <i class="fas fa-info-circle me-2 text-primary"></i>Product Information
+                </h6>
+            </div>
+            <div class="card-body p-4 bg-white">
+                <form method="post" asp-controller="Admin" asp-action="EditProduct" asp-route-id="@Model.Id" novalidate>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id">
+                    <input type="hidden" asp-for="CreatedAt">
+
+                    <!-- Category Selection -->
+                    <div class="mb-3">
+                        <label asp-for="CategoryId" class="form-label small fw-bold text-muted mb-1">Product Category</label>
+                        <select asp-for="CategoryId" class="form-select rounded-3 py-2" required>
+                            <option value="">-- Select a Category --</option>
+                            @if (categories != null && categories.Any())
+                            {
+                                @foreach (var category in categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Product Name -->
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label small fw-bold text-muted mb-1">Product Name</label>
+                        <input asp-for="Name" class="form-control rounded-3 py-2" placeholder="e.g. Mechanical Keyboard" required />
+                        <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label small fw-bold text-muted mb-1">Product Description</label>
+                        <textarea asp-for="Description" class="form-control rounded-3" rows="4" placeholder="Describe the product features and specs..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Price & Stock Row -->
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Price" class="form-label small fw-bold text-muted mb-1">Retail Price (USD)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input asp-for="Price" class="form-control rounded-end-3 py-2" type="number" step="0.01" min="0.01" required />
+                                </div>
+                                <span asp-validation-for="Price" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="StockQuantity" class="form-label small fw-bold text-muted mb-1">Stock Quantity</label>
+                                <input asp-for="StockQuantity" class="form-control rounded-3 py-2" type="number" min="0" required />
+                                <span asp-validation-for="StockQuantity" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image URL -->
+                    <div class="mb-4">
+                        <label asp-for="ImageUrl" class="form-label small fw-bold text-muted mb-1">Product Image URL</label>
+                        <input asp-for="ImageUrl" class="form-control rounded-3 py-2" placeholder="https://example.com/product.jpg" />
+                        <span asp-validation-for="ImageUrl" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="mb-4" id="imagePreviewContainer" style="display: none;">
+                        <span class="small text-muted fw-bold d-block mb-2">Image Preview</span>
+                        <img id="previewImg" src="" alt="Preview" class="border rounded-3" style="max-width: 150px; max-height: 150px; object-fit: cover;" />
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-grid gap-2 d-sm-flex">
+                        <button type="submit" class="btn btn-primary btn-lg flex-grow-1 py-3 fw-bold rounded-3 shadow">
+                            <i class="fas fa-save me-2"></i>Save Product Details
+                        </button>
+                        <a class="btn btn-outline-secondary btn-lg px-4 py-3 rounded-3 fw-semibold shadow-xs" asp-controller="Admin" asp-action="Dashboard">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Sidebar -->
+    <div class="col-lg-4">
+        <div class="card border-0 bg-light mb-3 rounded-3">
+            <div class="card-body p-4">
+                <h6 class="fw-bold text-dark mb-3">
+                    <i class="fas fa-lightbulb text-warning me-2"></i>Dashboard Editing Tips
+                </h6>
+                <ul class="small text-muted ps-3 d-flex flex-column gap-2 mb-0">
+                    <li>Updates take effect immediately on the product index catalog page.</li>
+                    <li>Verify pricing matches retail margins.</li>
+                    <li>Keep stock levels accurate to prevent checkout validation errors.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card border-0 bg-light rounded-3">
+            <div class="card-body p-4">
+                <h6 class="fw-bold text-dark mb-3">
+                    <i class="fas fa-images text-success me-2"></i>Sample Unsplash Image Links
+                </h6>
+                <div class="d-flex flex-column gap-3 small text-muted">
+                    <div>
+                        <span class="fw-bold d-block mb-1">Electronics Category:</span>
+                        <input type="text" class="form-control form-control-sm" value="https://images.unsplash.com/photo-1587829191301-72e0f0c57114?w=400" readonly style="font-size: 11px;" onclick="this.select()">
+                    </div>
+                    <div>
+                        <span class="fw-bold d-block mb-1">Office Category:</span>
+                        <input type="text" class="form-control form-control-sm" value="https://images.unsplash.com/photo-1588195538326-c5b1e6f4e799?w=400" readonly style="font-size: 11px;" onclick="this.select()">
+                    </div>
+                    <div>
+                        <span class="fw-bold d-block mb-1">Audio/Video Category:</span>
+                        <input type="text" class="form-control form-control-sm" value="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" readonly style="font-size: 11px;" onclick="this.select()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageUrlInput = document.getElementById('ImageUrl');
+            const previewContainer = document.getElementById('imagePreviewContainer');
+            const previewImg = document.getElementById('previewImg');
+
+            function updatePreview() {
+                if (imageUrlInput.value.trim()) {
+                    previewImg.src = imageUrlInput.value;
+                    previewImg.onerror = function () {
+                        previewContainer.style.display = 'none';
+                    };
+                    previewImg.onload = function () {
+                        previewContainer.style.display = 'block';
+                    };
+                } else {
+                    previewContainer.style.display = 'none';
+                }
+            }
+
+            imageUrlInput.addEventListener('blur', updatePreview);
+            updatePreview();
+        });
+    </script>
+}

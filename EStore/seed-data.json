@@ -1,0 +1,339 @@
+{
+  "categories": [
+    {
+      "name": "Gaming Gear",
+      "description": "High-performance mechanical keyboards, precision mice, and immersive gaming peripherals.",
+      "iconUrl": "https://images.unsplash.com/photo-1612287230202-1bf1d85d1bdf?w=150"
+    },
+    {
+      "name": "Audio & Acoustics",
+      "description": "Professional-grade studio headphones, wireless noise-cancelling earbuds, and audiophile speakers.",
+      "iconUrl": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=150"
+    },
+    {
+      "name": "Office & Ergonomics",
+      "description": "Ergonomic workspace seating, sit-stand desks, and accessories built for comfort and focus.",
+      "iconUrl": "https://images.unsplash.com/photo-1505797149-43b0069ec26b?w=150"
+    },
+    {
+      "name": "Smart Home & Lights",
+      "description": "Intelligent automated ambient lighting, security systems, and connected environment appliances.",
+      "iconUrl": "https://images.unsplash.com/photo-1558002038-1055907df827?w=150"
+    },
+    {
+      "name": "Mobile Accessories",
+      "description": "Premium protective cases, multi-device fast chargers, and high-speed transfer cables.",
+      "iconUrl": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=150"
+    },
+    {
+      "name": "Wearable Tech",
+      "description": "Advanced health-tracking smartwatches, biometric sensors, and active lifestyle bands.",
+      "iconUrl": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=150"
+    },
+    {
+      "name": "Photography & Video",
+      "description": "Professional DSLR cameras, high-stability gimbals, adjustable ring lights, and carbon tripods.",
+      "iconUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=150"
+    },
+    {
+      "name": "Fitness & Wellness",
+      "description": "Smart biometric scales, deep tissue massage guns, smart water bottles, and resistance training kits.",
+      "iconUrl": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=150"
+    },
+    {
+      "name": "Desktop Setup Essentials",
+      "description": "Adjustable LED monitor bars, modular cable management racks, fast wireless chargers, and multi-port USB-C hubs.",
+      "iconUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=150"
+    }
+  ],
+  "products": [
+    {
+      "name": "Rogue X Mechanical Keyboard",
+      "description": "Anodized aluminum frame, hot-swappable linear red switches, per-key RGB backlighting, and magnetic wrist rest.",
+      "price": 179.99,
+      "imageUrl": "https://images.unsplash.com/photo-1587829191301-72e0f0c57114?w=400",
+      "stockQuantity": 45,
+      "categoryName": "Gaming Gear"
+    },
+    {
+      "name": "Apex Precision Gaming Mouse",
+      "description": "Ultra-lightweight 58g honeycomb design, 26K DPI optical sensor, optical switches, and 100-hour battery life wireless connectivity.",
+      "price": 89.99,
+      "imageUrl": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400",
+      "stockQuantity": 60,
+      "categoryName": "Gaming Gear"
+    },
+    {
+      "name": "Spectra 27\" QHD Gaming Monitor",
+      "description": "2560x1440 Fast IPS panel, 240Hz refresh rate, 1ms response time, NVIDIA G-Sync compatible, and HDR400 visual clarity.",
+      "price": 429.99,
+      "imageUrl": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400",
+      "stockQuantity": 20,
+      "categoryName": "Gaming Gear"
+    },
+    {
+      "name": "Vortex Haptic Gaming Headset",
+      "description": "Custom 50mm dynamic drivers, spatial audio surround sound, active haptic feedback vibration, and retractable clear-cast mic.",
+      "price": 149.99,
+      "imageUrl": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400",
+      "stockQuantity": 35,
+      "categoryName": "Gaming Gear"
+    },
+    {
+      "name": "Acoustic Pro Studio Headphones",
+      "description": "Open-back reference headphones, 45mm neodymium drivers, ultra-wide frequency response, and memory foam velvet earcups.",
+      "price": 299.99,
+      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+      "stockQuantity": 30,
+      "categoryName": "Audio & Acoustics"
+    },
+    {
+      "name": "Zenith Noise-Cancelling Buds",
+      "description": "True wireless Bluetooth 5.3 earbuds, industry-leading hybrid ANC, 6-microphone call technology, and IPX7 water resistance.",
+      "price": 199.99,
+      "imageUrl": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400",
+      "stockQuantity": 80,
+      "categoryName": "Audio & Acoustics"
+    },
+    {
+      "name": "Pulse Portable Bluetooth Speaker",
+      "description": "360-degree room-filling immersive sound, dual passive radiators, 24-hour continuous battery, and floating IP67 waterproof design.",
+      "price": 119.99,
+      "imageUrl": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
+      "stockQuantity": 50,
+      "categoryName": "Audio & Acoustics"
+    },
+    {
+      "name": "SoundStage Audiophile Soundbar",
+      "description": "5.1-channel Dolby Atmos speaker system, integrated subwoofer, eARC HDMI connection, and Apple AirPlay 2 wireless casting.",
+      "price": 499.99,
+      "imageUrl": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400",
+      "stockQuantity": 15,
+      "categoryName": "Audio & Acoustics"
+    },
+    {
+      "name": "ErgoGlide Task Chair",
+      "description": "Fully adjustable 4D armrests, breathable structural mesh back, dynamic auto-weight tilt tension, and premium lumbar cradle.",
+      "price": 389.99,
+      "imageUrl": "https://images.unsplash.com/photo-1580481072645-022f9a6dbf27?w=400",
+      "stockQuantity": 25,
+      "categoryName": "Office & Ergonomics"
+    },
+    {
+      "name": "Lumina Sit-Stand Electric Desk",
+      "description": "Dual-motor steel frame, programmable digital controller with 4 presets, solid bamboo tabletop, and built-in cable management drawer.",
+      "price": 549.99,
+      "imageUrl": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400",
+      "stockQuantity": 18,
+      "categoryName": "Office & Ergonomics"
+    },
+    {
+      "name": "Horizon Dual Monitor Mount",
+      "description": "Premium gas-spring aluminum arms, full articulation tilt and swivel, desk clamp mount, and heavy-duty 9kg capacity per screen.",
+      "price": 99.99,
+      "imageUrl": "https://images.unsplash.com/photo-1618424181497-157f25b6ddd5?w=400",
+      "stockQuantity": 40,
+      "categoryName": "Office & Ergonomics"
+    },
+    {
+      "name": "ComfortPad Orthopedic Desk Mat",
+      "description": "Premium merino wool felt desk protector, anti-fray stitched borders, and natural non-slip cork backing.",
+      "price": 39.99,
+      "imageUrl": "https://images.unsplash.com/photo-1632292224971-0d45778bd364?w=400",
+      "stockQuantity": 120,
+      "categoryName": "Office & Ergonomics"
+    },
+    {
+      "name": "Aura Smart Ambient Light Bar",
+      "description": "Dual light bar pack, 16 million colors, synced dynamic music visualizer rhythm, and Google Assistant voice automation compatibility.",
+      "price": 79.99,
+      "imageUrl": "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400",
+      "stockQuantity": 65,
+      "categoryName": "Smart Home & Lights"
+    },
+    {
+      "name": "NestGuard HD Security Camera",
+      "description": "1080p wireless camera, color night vision sensor, intelligent AI person and pet detection, and two-way talk audio.",
+      "price": 129.99,
+      "imageUrl": "https://images.unsplash.com/photo-1558002038-1055907df827?w=400",
+      "stockQuantity": 40,
+      "categoryName": "Smart Home & Lights"
+    },
+    {
+      "name": "Atmos Smart Room Humidifier",
+      "description": "Cool mist ultrasonic humidifier, 4-liter top-fill tank, built-in smart humidity sensor auto-target, and essential oil diffuser tray.",
+      "price": 69.99,
+      "imageUrl": "https://images.unsplash.com/photo-1614859132135-d249ef84a7e9?w=400",
+      "stockQuantity": 30,
+      "categoryName": "Smart Home & Lights"
+    },
+    {
+      "name": "Chronos Smart Alarm Clock",
+      "description": "Retro-modern design with digital pixel art display, customizable weather widgets, wireless phone charger, and 10W Bluetooth speaker.",
+      "price": 99.99,
+      "imageUrl": "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=400",
+      "stockQuantity": 50,
+      "categoryName": "Smart Home & Lights"
+    },
+    {
+      "name": "VoltCharge 3-in-1 Power Station",
+      "description": "MagSafe compatible 15W fast wireless charger stand for iPhone, Apple Watch magnetic pad, and AirPods wireless charging tray.",
+      "price": 89.99,
+      "imageUrl": "https://images.unsplash.com/photo-1622445262465-2481c4574875?w=400",
+      "stockQuantity": 90,
+      "categoryName": "Mobile Accessories"
+    },
+    {
+      "name": "ArmorShield Kevlar iPhone Case",
+      "description": "Genuine DuPont Kevlar fiber construction, military-grade 12ft drop protection, MagSafe magnetic ring integration, and slim profile.",
+      "price": 49.99,
+      "imageUrl": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400",
+      "stockQuantity": 150,
+      "categoryName": "Mobile Accessories"
+    },
+    {
+      "name": "InfinityPower 20K Power Bank",
+      "description": "20,000mAh portable charger, ultra-high-speed 65W USB-C Power Delivery port, digital power percentage display, and laptop charging.",
+      "price": 69.99,
+      "imageUrl": "https://images.unsplash.com/photo-1609592424109-dd2556b10087?w=400",
+      "stockQuantity": 70,
+      "categoryName": "Mobile Accessories"
+    },
+    {
+      "name": "ApexLink Braided USB-C Cable",
+      "description": "2-meter heavy-duty nylon braided cord, supports 100W Power Delivery, high-speed 10Gbps USB 3.2 Gen 2 data transfer rates.",
+      "price": 19.99,
+      "imageUrl": "https://images.unsplash.com/photo-1611707171634-5f897ff02aa9?w=400",
+      "stockQuantity": 300,
+      "categoryName": "Mobile Accessories"
+    },
+    {
+      "name": "Chronofit X Active Smartwatch",
+      "description": "AMOLED touch screen, dynamic optical heart rate monitor, multi-sport GPS tracking, blood oxygen sensor, and 14-day battery life.",
+      "price": 249.99,
+      "imageUrl": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400",
+      "stockQuantity": 50,
+      "categoryName": "Wearable Tech"
+    },
+    {
+      "name": "AeroRing Biometric Health Ring",
+      "description": "Ultra-lightweight aerospace titanium smart ring, sleep cycle analyzer, continuous skin temperature tracking, and water resistant up to 100m.",
+      "price": 299.99,
+      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400",
+      "stockQuantity": 35,
+      "categoryName": "Wearable Tech"
+    },
+    {
+      "name": "HydroFit Sports Tracker Band",
+      "description": "Slim biometric active fitness band, real-time stress tracking metrics, automatic activity recognition, and swim-proof IP68 screen.",
+      "price": 59.99,
+      "imageUrl": "https://images.unsplash.com/photo-1557935728-e6d1eaabe558?w=400",
+      "stockQuantity": 110,
+      "categoryName": "Wearable Tech"
+    },
+    {
+      "name": "Stratos Polarized Audio Sunglasses",
+      "description": "Premium polarized UV400 lenses, dual integrated bone-conduction open-ear audio speakers, built-in mic, and voice controls.",
+      "price": 189.99,
+      "imageUrl": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400",
+      "stockQuantity": 25,
+      "categoryName": "Wearable Tech"
+    },
+    {
+      "name": "Lumix G-Series Mirrorless Camera",
+      "description": "20.3 Megapixel Digital Live MOS sensor, 5-axis dual image stabilization, 4K video recording, and high-speed autofocus kit lens.",
+      "price": 799.99,
+      "imageUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400",
+      "stockQuantity": 12,
+      "categoryName": "Photography & Video"
+    },
+    {
+      "name": "GlidePro 3-Axis Gimbal Stabilizer",
+      "description": "Professional handheld stabilizer for smartphones and mirrorless cameras, smart tracking modes, focus wheel, and 12-hour runtime.",
+      "price": 159.99,
+      "imageUrl": "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?w=400",
+      "stockQuantity": 28,
+      "categoryName": "Photography & Video"
+    },
+    {
+      "name": "CineLight 18\" Ring Light Kit",
+      "description": "Dimmable LED ring light with tripod stand, adjustable color temperature 3200K-5600K, phone holder, and wireless remote control.",
+      "price": 69.99,
+      "imageUrl": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=400",
+      "stockQuantity": 40,
+      "categoryName": "Photography & Video"
+    },
+    {
+      "name": "ApexCarbon 65\" Camera Tripod",
+      "description": "Ultra-durable lightweight carbon fiber tripod, 360-degree panoramic ball head, quick-release plate, and monopod conversion option.",
+      "price": 129.99,
+      "imageUrl": "https://images.unsplash.com/photo-1495707902641-75cac588d2e9?w=400",
+      "stockQuantity": 22,
+      "categoryName": "Photography & Video"
+    },
+    {
+      "name": "FitScale Smart Biometric Scale",
+      "description": "High-precision body composition analyzer measuring weight, body fat %, muscle mass, and water weight with smartphone sync.",
+      "price": 49.99,
+      "imageUrl": "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400",
+      "stockQuantity": 75,
+      "categoryName": "Fitness & Wellness"
+    },
+    {
+      "name": "PulseRecover Percussion Massage Gun",
+      "description": "Professional deep tissue massager with brushless high-torque motor, 30 speed levels, 6 interchangeable heads, and travel case.",
+      "price": 119.99,
+      "imageUrl": "https://images.unsplash.com/photo-1607962837359-5e7e89f866ad?w=400",
+      "stockQuantity": 35,
+      "categoryName": "Fitness & Wellness"
+    },
+    {
+      "name": "HydroTrack Smart Water Bottle",
+      "description": "Vacuum insulated stainless steel water bottle, glowing hydration reminders, Bluetooth app tracker, and 24-hour cold temperature retention.",
+      "price": 39.99,
+      "imageUrl": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400",
+      "stockQuantity": 95,
+      "categoryName": "Fitness & Wellness"
+    },
+    {
+      "name": "VeloBand Premium Resistance Set",
+      "description": "11-piece heavy-duty latex resistance bands kit, foam handles, ankle straps, door anchor, and comprehensive workout guide book.",
+      "price": 29.99,
+      "imageUrl": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400",
+      "stockQuantity": 120,
+      "categoryName": "Fitness & Wellness"
+    },
+    {
+      "name": "ScreenBar LED Monitor Light",
+      "description": "Space-saving monitor-mounted task lamp, auto-dimming smart sensor, no screen glare, and adjustable hue temperature settings.",
+      "price": 79.99,
+      "imageUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400",
+      "stockQuantity": 55,
+      "categoryName": "Desktop Setup Essentials"
+    },
+    {
+      "name": "CableGrid Under-Desk Management",
+      "description": "Heavy-duty steel wire cable tray pack of two, easy mounting under desk desks, prevents clutter and safely guides cords.",
+      "price": 24.99,
+      "imageUrl": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400",
+      "stockQuantity": 80,
+      "categoryName": "Desktop Setup Essentials"
+    },
+    {
+      "name": "VoltPad Dual Wireless Charger",
+      "description": "Ultra-slim leather dual charging pad, supports two devices simultaneously up to 15W each, with integrated thermal protection.",
+      "price": 49.99,
+      "imageUrl": "https://images.unsplash.com/photo-1622445262465-2481c4574875?w=400",
+      "stockQuantity": 65,
+      "categoryName": "Desktop Setup Essentials"
+    },
+    {
+      "name": "CoreHub 8-in-1 USB-C Dock",
+      "description": "Aluminum hub with 4K HDMI, 100W Power Delivery, SD/TF card reader, 3 USB 3.0 ports, and Gigabit Ethernet adapter connection.",
+      "price": 59.99,
+      "imageUrl": "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=400",
+      "stockQuantity": 70,
+      "categoryName": "Desktop Setup Essentials"
+    }
+  ]
+}

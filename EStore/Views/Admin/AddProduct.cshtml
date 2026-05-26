@@ -1,0 +1,198 @@
+@model Product
+
+@{
+    ViewData["Title"] = "Add New Product";
+    var categories = ViewData["Categories"] as List<Category>;
+}
+
+<!-- Page Header -->
+<div class="mb-4">
+    <h1 style="color: #1f2937; margin-bottom: 0;">
+        <i class="fas fa-plus-circle me-2" style="color: #667eea;"></i>Add New Product
+    </h1>
+    <p class="text-muted">Create a new product in your catalog</p>
+</div>
+
+<!-- Form Container -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header border-0 bg-light">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Product Information
+                </h6>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="Admin" asp-action="AddProduct" novalidate>
+                    <!-- Category Selection -->
+                    <div class="mb-3">
+                        <label for="CategoryId" class="form-label fw-bold">
+                            <i class="fas fa-layer-group me-2" style="color: #667eea;"></i>Category
+                            <span class="text-danger">*</span>
+                        </label>
+                        <select id="CategoryId" name="CategoryId" class="form-select" required asp-for="CategoryId">
+                            <option value="">-- Select a Category --</option>
+                            @if (categories != null && categories.Any())
+                            {
+                                @foreach (var category in categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="" disabled>No categories available. <a href="@Url.Action("AddCategory", "Admin")">Create one</a></option>
+                            }
+                        </select>
+                        <span asp-validation-for="CategoryId" class="invalid-feedback d-block"></span>
+                        <small class="form-text text-muted">Select which category this product belongs to</small>
+                    </div>
+
+                    <!-- Product Name -->
+                    <div class="mb-3">
+                        <label for="Name" class="form-label fw-bold">
+                            <i class="fas fa-tag me-2" style="color: #667eea;"></i>Product Name
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" id="Name" name="Name" class="form-control" required placeholder="e.g., Premium Laptop Stand" asp-for="Name">
+                        <span asp-validation-for="Name" class="invalid-feedback d-block"></span>
+                        <small class="form-text text-muted">Enter a clear and descriptive product name</small>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="Description" class="form-label fw-bold">
+                            <i class="fas fa-align-left me-2" style="color: #667eea;"></i>Description
+                        </label>
+                        <textarea id="Description" name="Description" class="form-control" rows="4" placeholder="Describe your product features, benefits, and specifications..." asp-for="Description"></textarea>
+                        <span asp-validation-for="Description" class="invalid-feedback d-block"></span>
+                        <small class="form-text text-muted">Maximum 2000 characters</small>
+                    </div>
+
+                    <!-- Price & Stock Row -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Price" class="form-label fw-bold">
+                                    <i class="fas fa-dollar-sign me-2" style="color: #667eea;"></i>Price (USD)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" id="Price" name="Price" class="form-control" required step="0.01" min="0" placeholder="0.00" asp-for="Price">
+                                </div>
+                                <span asp-validation-for="Price" class="invalid-feedback d-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="StockQuantity" class="form-label fw-bold">
+                                    <i class="fas fa-boxes me-2" style="color: #667eea;"></i>Stock Quantity
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="number" id="StockQuantity" name="StockQuantity" class="form-control" required min="0" placeholder="0" asp-for="StockQuantity">
+                                <span asp-validation-for="StockQuantity" class="invalid-feedback d-block"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image URL -->
+                    <div class="mb-4">
+                        <label for="ImageUrl" class="form-label fw-bold">
+                            <i class="fas fa-image me-2" style="color: #667eea;"></i>Image URL
+                        </label>
+                        <input type="text" id="ImageUrl" name="ImageUrl" class="form-control" placeholder="https://example.com/product-image.jpg" asp-for="ImageUrl">
+                        <span asp-validation-for="ImageUrl" class="invalid-feedback d-block"></span>
+                        <small class="form-text text-muted">Provide a direct link to the product image (JPG, PNG). Recommended size: 400x400px</small>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="mb-3" id="imagePreviewContainer" style="display: none;">
+                        <p class="small text-muted mb-2">Image Preview:</p>
+                        <img id="previewImg" src="" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 0.5rem;" />
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-grid gap-2 d-sm-flex">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save me-2"></i>Add Product
+                        </button>
+                        <a class="btn btn-outline-secondary btn-lg" asp-controller="Admin" asp-action="Dashboard">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Sidebar -->
+    <div class="col-lg-4">
+        <div class="card border-0 bg-light mb-3">
+            <div class="card-body">
+                <h6 class="card-title fw-bold mb-3">
+                    <i class="fas fa-lightbulb me-2" style="color: #f59e0b;"></i>Tips
+                </h6>
+                <ul class="small">
+                    <li class="mb-2">Use a <strong>clear product name</strong> that describes the item</li>
+                    <li class="mb-2">Write a <strong>detailed description</strong> to help customers understand the product</li>
+                    <li class="mb-2">Set realistic <strong>pricing</strong> for your market</li>
+                    <li class="mb-2">Maintain accurate <strong>stock quantities</strong></li>
+                    <li>Always include a <strong>product image</strong> for better sales</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card border-0 bg-light">
+            <div class="card-body">
+                <h6 class="card-title fw-bold mb-3">
+                    <i class="fas fa-images me-2" style="color: #10b981;"></i>Sample Image URLs
+                </h6>
+                <small>
+                    <p class="mb-2"><strong>Electronics:</strong></p>
+                    <input type="text" class="form-control form-control-sm mb-2" value="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" readonly style="font-size: 11px;" onclick="this.select()">
+                </small>
+                <small>
+                    <p class="mb-2"><strong>Fashion:</strong></p>
+                    <input type="text" class="form-control form-control-sm mb-2" value="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" readonly style="font-size: 11px;" onclick="this.select()">
+                </small>
+                <small>
+                    <p class="mb-2"><strong>Books:</strong></p>
+                    <input type="text" class="form-control form-control-sm mb-2" value="https://images.unsplash.com/photo-1507842217343-583f7270bfba?w=400" readonly style="font-size: 11px;" onclick="this.select()">
+                </small>
+                <small>
+                    <p class="mb-2"><strong>Food:</strong></p>
+                    <input type="text" class="form-control form-control-sm mb-2" value="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" readonly style="font-size: 11px;" onclick="this.select()">
+                </small>
+                <small>
+                    <p class="mb-2"><strong>Sports:</strong></p>
+                    <input type="text" class="form-control form-control-sm mb-2" value="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400" readonly style="font-size: 11px;" onclick="this.select()">
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const imageUrlInput = document.getElementById('ImageUrl');
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const previewImg = document.getElementById('previewImg');
+
+    imageUrlInput.addEventListener('blur', function () {
+        if (this.value.trim()) {
+            previewImg.src = this.value;
+            previewImg.onerror = function () {
+                previewContainer.style.display = 'none';
+            };
+            previewImg.onload = function () {
+                previewContainer.style.display = 'block';
+            };
+        } else {
+            previewContainer.style.display = 'none';
+        }
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

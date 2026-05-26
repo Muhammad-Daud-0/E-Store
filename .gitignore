@@ -1,0 +1,15 @@
+.vs/
+**/bin/
+**/obj/
+**/*.csproj.user
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Environment files (local secrets)
+.env
+EStore/.env
+
+# Other local secrets example file (safe to commit)
+EStore/.env.example
