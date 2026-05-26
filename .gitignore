@@ -10,6 +10,3 @@
 # Environment files (local secrets)
 .env
 EStore/.env
-
-# Other local secrets example file (safe to commit)
-EStore/.env.example
