@@ -5,23 +5,22 @@
 }
 
 <!-- Premium Hero Section -->
-<div class="hero-section text-center text-white py-5 px-4 mb-5 shadow"
-     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1.25rem;">
+<div class="hero-section text-center text-white mb-5 animate-fade-in-up">
     <div class="py-4">
-        <h1 class="display-4 fw-bold text-white mb-2 tracking-tight">
+        <h1 class="display-4 fw-bold text-white mb-3">
             <i class="fas fa-shopping-bag me-3"></i>Welcome to E-Store
         </h1>
-        <p class="fs-5 opacity-90 mb-0">Discover premium high-tech gadgets and office equipment at unbeatable prices.</p>
+        <p class="fs-5 mb-0" style="color: rgba(255,255,255,0.85);">Discover premium high-tech gadgets and office equipment at unbeatable prices.</p>
     </div>
 </div>
 
 <!-- Authentication Warning Banner for Guests -->
 @if (User.Identity?.IsAuthenticated == false)
 {
-    <div class="alert alert-info d-flex flex-column flex-md-row justify-content-between align-items-md-center shadow-sm p-4 mb-4" role="alert">
+    <div class="alert alert-info d-flex flex-column flex-md-row justify-content-between align-items-md-center p-4 mb-4 animate-fade-in-up delay-1" role="alert" style="border-radius: var(--radius-lg);">
         <div class="mb-3 mb-md-0">
-            <h5 class="alert-heading fw-bold mb-1"><i class="fas fa-info-circle me-2 text-primary"></i>Experience the Best Shopping</h5>
-            <p class="mb-0 text-muted small">Sign in to your account to add items to your cart, customize your orders, and proceed with a secure checkout.</p>
+            <h5 class="alert-heading fw-bold mb-1"><i class="fas fa-info-circle me-2"></i>Experience the Best Shopping</h5>
+            <p class="mb-0 small" style="color: var(--text-secondary);">Sign in to your account to add items to your cart, customize your orders, and proceed with a secure checkout.</p>
         </div>
         <div class="d-flex gap-2">
             <a class="btn btn-primary btn-sm px-4 py-2" asp-controller="Account" asp-action="Login">
@@ -35,15 +34,16 @@
 }
 
 <!-- Interactive Search & Navigation Controls -->
-<div class="row g-3 align-items-center mb-4">
+<div class="row g-3 align-items-center mb-4 animate-fade-in-up delay-2">
     <div class="col-md-8">
         <div class="position-relative">
-            <input type="text" id="searchInput" class="form-control rounded-pill ps-4 pe-5 py-3 shadow-sm" 
-                   placeholder="Search our catalog by name or description..." autocomplete="off">
-            <i class="fas fa-search position-absolute text-muted" style="right: 1.5rem; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
+            <input type="text" id="searchInput" class="form-control ps-4 pe-5 py-3"
+                   placeholder="Search our catalog by name or description..." autocomplete="off"
+                   style="border-radius: var(--radius-full); background: var(--bg-glass); backdrop-filter: blur(12px); border: 1.5px solid var(--border-color); box-shadow: var(--shadow-sm);">
+            <i class="fas fa-search position-absolute" style="right: 1.5rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted);"></i>
         </div>
     </div>
-    <div class="col-md-4 text-md-end text-muted small">
+    <div class="col-md-4 text-md-end small" style="color: var(--text-muted);">
         <span id="resultsCount" class="fw-semibold">Showing all products</span>
     </div>
 </div>
@@ -51,14 +51,16 @@
 <!-- Category Selection Filter Buttons -->
 @if (Model.Categories.Any())
 {
-    <div class="d-flex flex-wrap gap-2 mb-5">
-        <a href="@Url.Action("Index", "Home")" class="btn btn-sm rounded-pill px-4 py-2 shadow-sm @(!Model.SelectedCategoryId.HasValue ? "btn-primary" : "btn-light border")">
+    <div class="d-flex flex-wrap gap-2 mb-5 animate-fade-in-up delay-3">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-sm px-4 py-2 @(!Model.SelectedCategoryId.HasValue ? "btn-primary" : "btn-light border")"
+           style="border-radius: var(--radius-full);">
             <i class="fas fa-th me-2"></i>All Products
         </a>
         @foreach (var category in Model.Categories.OrderBy(c => c.Name))
         {
             <a asp-action="Index" asp-route-categoryId="@category.Id"
-               class="btn btn-sm rounded-pill px-4 py-2 shadow-sm @(Model.SelectedCategoryId == category.Id ? "btn-primary" : "btn-light border")">
+               class="btn btn-sm px-4 py-2 @(Model.SelectedCategoryId == category.Id ? "btn-primary" : "btn-light border")"
+               style="border-radius: var(--radius-full);">
                 <i class="fas fa-tag me-2"></i>@category.Name
             </a>
         }
@@ -73,13 +75,13 @@
             var selectedCat = Model.Categories.FirstOrDefault(c => c.Id == Model.SelectedCategoryId);
             if (selectedCat != null)
             {
-                <h3 class="fw-bold text-dark mb-0">@selectedCat.Name</h3>
-                <p class="text-muted small mb-0">@selectedCat.Description</p>
+                <h3 class="fw-bold mb-0" style="color: var(--text-primary);">@selectedCat.Name</h3>
+                <p class="small mb-0" style="color: var(--text-muted);">@selectedCat.Description</p>
             }
         }
         else
         {
-            <h3 class="fw-bold text-dark mb-0">Our Collection</h3>
+            <h3 class="fw-bold mb-0" style="color: var(--text-primary);">Our Collection</h3>
         }
     </div>
     
@@ -87,8 +89,8 @@
     @if (!Model.SelectedCategoryId.HasValue)
     {
         <div class="d-flex align-items-center gap-2">
-            <label for="sortSelect" class="text-muted small fw-semibold mb-0 text-nowrap">Sort By:</label>
-            <select id="sortSelect" class="form-select form-select-sm rounded-3 py-2 shadow-sm" style="min-width: 180px;"
+            <label for="sortSelect" class="small fw-semibold mb-0 text-nowrap" style="color: var(--text-muted);">Sort By:</label>
+            <select id="sortSelect" class="form-select form-select-sm py-2" style="min-width: 180px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);"
                     onchange="window.location.href='@Url.Action("Index", "Home")?sort=' + this.value">
                 @if (ViewData["CurrentSort"]?.ToString() == "name" || string.IsNullOrEmpty(ViewData["CurrentSort"]?.ToString()))
                 {
@@ -140,19 +142,19 @@
             @foreach (var product in Model.Products)
             {
                 <div class="col product-card-wrapper">
-                    <div class="card h-100 product-card shadow-sm border-0 position-relative"
+                    <div class="card h-100 product-card border-0 position-relative"
                          data-product-name="@product.Name" data-product-description="@product.Description">
                          
                          <!-- Product Image -->
-                         <div class="ratio ratio-4x3 bg-light overflow-hidden rounded-top">
+                         <div class="product-image-wrapper ratio ratio-4x3 overflow-hidden" style="background: var(--bg-tertiary);">
                              @if (!string.IsNullOrEmpty(product.ImageUrl))
                              {
                                  <img src="@product.ImageUrl" class="object-fit-cover" alt="@product.Name"
-                                      onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center bg-light text-muted fs-2\'><i class=\'fas fa-box\'></i></div>';" />
+                                      onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted fs-2\' style=\'background: var(--bg-tertiary);\'><i class=\'fas fa-box\'></i></div>';" />
                              }
                              else
                              {
-                                 <div class="d-flex align-items-center justify-content-center bg-light text-muted fs-2">
+                                 <div class="d-flex align-items-center justify-content-center fs-2" style="background: var(--bg-tertiary); color: var(--text-muted);">
                                      <i class="fas fa-box"></i>
                                  </div>
                              }
@@ -162,30 +164,30 @@
                          <div class="position-absolute" style="top: 12px; right: 12px; z-index: 10;">
                              @if (product.StockQuantity > 0)
                              {
-                                 <span class="badge bg-success rounded-pill px-2.5 py-1.5 shadow-sm fw-bold" style="font-size: 0.7rem; border-radius: 20px; width: auto; height: auto;">
-                                     <i class="fas fa-check-circle me-1"></i>In Stock
+                                 <span class="product-stock stock-in">
+                                     <i class="fas fa-check-circle"></i> In Stock
                                  </span>
                              }
                              else
                              {
-                                 <span class="badge bg-danger rounded-pill px-2.5 py-1.5 shadow-sm fw-bold" style="font-size: 0.7rem; border-radius: 20px; width: auto; height: auto;">
-                                     <i class="fas fa-times-circle me-1"></i>Out of Stock
+                                 <span class="product-stock stock-out">
+                                     <i class="fas fa-times-circle"></i> Out of Stock
                                  </span>
                              }
                          </div>
                          
                          <!-- Product Description Body -->
-                         <div class="card-body d-flex flex-column p-3.5">
-                             <h6 class="fw-bold text-dark mb-1 text-truncate" title="@product.Name">@product.Name</h6>
-                             <p class="text-muted small mb-3 flex-grow-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                         <div class="card-body d-flex flex-column">
+                             <h6 class="product-name text-truncate" title="@product.Name">@product.Name</h6>
+                             <p class="product-description flex-grow-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                  @product.Description
                              </p>
                              
                              <div class="mt-auto">
-                                 <div class="fs-4 fw-bold text-primary mb-3">
+                                 <div class="product-price mb-3">
                                      $@product.Price.ToString("F2")
                                  </div>
-                                 <div class="d-flex gap-2">
+                                 <div class="product-actions">
                                      <a class="btn btn-outline-primary btn-sm flex-grow-1 py-2 fw-semibold" asp-action="ProductDetails" asp-route-id="@product.Id">
                                          <i class="fas fa-eye me-1"></i>View
                                      </a>
@@ -217,19 +219,19 @@
                     @foreach (var product in categoryGroup.OrderBy(p => p.Name))
                     {
                         <div class="col product-card-wrapper">
-                            <div class="card h-100 product-card shadow-sm border-0 position-relative"
+                            <div class="card h-100 product-card border-0 position-relative"
                                  data-product-name="@product.Name" data-product-description="@product.Description">
                                  
                                  <!-- Product Image -->
-                                 <div class="ratio ratio-4x3 bg-light overflow-hidden rounded-top">
+                                 <div class="product-image-wrapper ratio ratio-4x3 overflow-hidden" style="background: var(--bg-tertiary);">
                                      @if (!string.IsNullOrEmpty(product.ImageUrl))
                                      {
                                          <img src="@product.ImageUrl" class="object-fit-cover" alt="@product.Name"
-                                              onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center bg-light text-muted fs-2\'><i class=\'fas fa-box\'></i></div>';" />
+                                              onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted fs-2\' style=\'background: var(--bg-tertiary);\'><i class=\'fas fa-box\'></i></div>';" />
                                      }
                                      else
                                      {
-                                         <div class="d-flex align-items-center justify-content-center bg-light text-muted fs-2">
+                                         <div class="d-flex align-items-center justify-content-center fs-2" style="background: var(--bg-tertiary); color: var(--text-muted);">
                                              <i class="fas fa-box"></i>
                                          </div>
                                      }
@@ -239,30 +241,30 @@
                                  <div class="position-absolute" style="top: 12px; right: 12px; z-index: 10;">
                                      @if (product.StockQuantity > 0)
                                      {
-                                         <span class="badge bg-success rounded-pill px-2.5 py-1.5 shadow-sm fw-bold" style="font-size: 0.7rem; border-radius: 20px; width: auto; height: auto;">
-                                             <i class="fas fa-check-circle me-1"></i>In Stock
+                                         <span class="product-stock stock-in">
+                                             <i class="fas fa-check-circle"></i> In Stock
                                          </span>
                                      }
                                      else
                                      {
-                                         <span class="badge bg-danger rounded-pill px-2.5 py-1.5 shadow-sm fw-bold" style="font-size: 0.7rem; border-radius: 20px; width: auto; height: auto;">
-                                             <i class="fas fa-times-circle me-1"></i>Out of Stock
+                                         <span class="product-stock stock-out">
+                                             <i class="fas fa-times-circle"></i> Out of Stock
                                          </span>
                                      }
                                  </div>
                                  
                                  <!-- Product Description Body -->
-                                 <div class="card-body d-flex flex-column p-3.5">
-                                     <h6 class="fw-bold text-dark mb-1 text-truncate" title="@product.Name">@product.Name</h6>
-                                     <p class="text-muted small mb-3 flex-grow-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                 <div class="card-body d-flex flex-column">
+                                     <h6 class="product-name text-truncate" title="@product.Name">@product.Name</h6>
+                                     <p class="product-description flex-grow-1" style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                          @product.Description
                                      </p>
                                      
                                      <div class="mt-auto">
-                                         <div class="fs-4 fw-bold text-primary mb-3">
+                                         <div class="product-price mb-3">
                                              $@product.Price.ToString("F2")
                                          </div>
-                                         <div class="d-flex gap-2">
+                                         <div class="product-actions">
                                              <a class="btn btn-outline-primary btn-sm flex-grow-1 py-2 fw-semibold" asp-action="ProductDetails" asp-route-id="@product.Id">
                                                  <i class="fas fa-eye me-1"></i>View
                                              </a>
@@ -285,18 +287,18 @@
 }
 else
 {
-    <div class="text-center py-5 shadow-sm rounded-3 bg-white border">
-        <i class="fas fa-box-open text-muted display-1 mb-3"></i>
-        <h4 class="fw-bold text-dark">No products available</h4>
-        <p class="text-muted mb-0">Our product catalog is currently empty. Please check back later!</p>
+    <div class="text-center py-5 rounded-3" style="background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
+        <i class="fas fa-box-open display-1 mb-3" style="color: var(--text-muted);"></i>
+        <h4 class="fw-bold" style="color: var(--text-primary);">No products available</h4>
+        <p class="mb-0" style="color: var(--text-muted);">Our product catalog is currently empty. Please check back later!</p>
     </div>
 }
 
 <!-- No Search Results Found Banner -->
-<div id="noResults" class="text-center py-5 shadow-sm rounded-3 bg-white border" style="display: none;">
-    <i class="fas fa-search text-muted display-2 mb-3"></i>
-    <h4 class="fw-bold text-dark">No products match your search</h4>
-    <p class="text-muted mb-0">Try typing a different keyword or browse through the categories above.</p>
+<div id="noResults" class="text-center py-5" style="display: none; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
+    <i class="fas fa-search display-2 mb-3" style="color: var(--text-muted);"></i>
+    <h4 class="fw-bold" style="color: var(--text-primary);">No products match your search</h4>
+    <p class="mb-0" style="color: var(--text-muted);">Try typing a different keyword or browse through the categories above.</p>
 </div>
 
 @section Scripts {

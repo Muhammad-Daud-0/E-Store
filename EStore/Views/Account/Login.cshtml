@@ -5,14 +5,14 @@
 }
 
 <div class="auth-container d-flex align-items-center justify-content-center py-5">
-    <div class="card border-0 shadow auth-card p-4 p-md-5 rounded-4" style="max-width: 450px; width: 100%;">
+    <div class="auth-card animate-fade-in-up">
         <!-- Header -->
         <div class="text-center mb-4">
-            <div class="mb-3 text-primary" style="font-size: 3.5rem;">
+            <div class="mb-3 text-gradient" style="font-size: 3.5rem;">
                 <i class="fas fa-shopping-bag"></i>
             </div>
-            <h2 class="fw-bold text-dark mb-1">Welcome Back</h2>
-            <p class="text-muted small">Access your premium e-commerce dashboard</p>
+            <h2 class="fw-bold mb-1" style="color: var(--text-primary);">Welcome Back</h2>
+            <p class="small" style="color: var(--text-muted);">Access your premium e-commerce dashboard</p>
         </div>
 
         @if (TempData["ErrorMessage"] != null)
@@ -28,51 +28,52 @@
         <form method="post" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]">
             <!-- Email Field -->
             <div class="mb-3">
-                <label asp-for="Email" class="form-label small fw-bold text-muted mb-1">
-                    <i class="fas fa-envelope me-1 text-primary"></i> Email Address
+                <label asp-for="Email" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
+                    <i class="fas fa-envelope me-1" style="color: var(--accent-1);"></i> Email Address
                 </label>
-                <input asp-for="Email" class="form-control py-2.5 rounded-3" placeholder="name@example.com" required autocomplete="email" />
+                <input asp-for="Email" class="form-control py-2 rounded-3" placeholder="name@example.com" required autocomplete="email" />
                 <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
             </div>
 
             <!-- Password Field -->
             <div class="mb-3">
-                <label asp-for="Password" class="form-label small fw-bold text-muted mb-1">
-                    <i class="fas fa-lock me-1 text-primary"></i> Password
+                <label asp-for="Password" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
+                    <i class="fas fa-lock me-1" style="color: var(--accent-1);"></i> Password
                 </label>
-                <input asp-for="Password" class="form-control py-2.5 rounded-3" placeholder="••••••••" required autocomplete="current-password" />
+                <input asp-for="Password" class="form-control py-2 rounded-3" placeholder="••••••••" required autocomplete="current-password" />
                 <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
             </div>
 
             <!-- Remember Me -->
             <div class="mb-4 form-check d-flex align-items-center gap-2">
                 <input asp-for="RememberMe" class="form-check-input mt-0" />
-                <label asp-for="RememberMe" class="form-check-label small text-muted">
+                <label asp-for="RememberMe" class="form-check-label small" style="color: var(--text-muted);">
                     Remember me for 30 days
                 </label>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold rounded-3 shadow mb-3">
+            <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold rounded-3 mb-3">
                 <i class="fas fa-sign-in-alt me-2"></i>Sign In
             </button>
         </form>
 
         <!-- Divider -->
         <div class="auth-divider my-4">
-            <span class="text-muted small px-3">or continue with</span>
+            <span class="small px-3" style="color: var(--text-muted);">or continue with</span>
         </div>
 
         <!-- Google OAuth Button -->
-        <a href="@Url.Action("GoogleLogin", "Account")" class="btn btn-outline-primary py-2.5 fw-bold rounded-3 w-100 mb-4 transition-all">
-            <i class="fab fa-google me-2 text-danger"></i>Sign In with Google
+        <a href="@Url.Action("GoogleLogin", "Account")" class="btn btn-outline-primary py-2 fw-bold rounded-3 w-100 mb-4 d-flex align-items-center justify-content-center gap-2" style="border-color: var(--border-color); color: var(--text-primary);">
+            <i class="fab fa-google text-danger"></i>
+            <span>Sign In with Google</span>
         </a>
 
         <!-- Registration Link -->
         <div class="text-center pt-2">
-            <p class="text-muted small mb-0">
-                New to E-Store? 
-                <a asp-controller="Account" asp-action="Register" class="text-primary fw-bold text-decoration-none hover-link">
+            <p class="small mb-0" style="color: var(--text-muted);">
+                New to E-Store?
+                <a asp-controller="Account" asp-action="Register" class="fw-bold text-decoration-none hover-link" style="color: var(--accent-1);">
                     Create an account
                 </a>
             </p>

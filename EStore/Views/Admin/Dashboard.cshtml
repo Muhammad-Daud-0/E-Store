@@ -5,8 +5,7 @@
 }
 
 <!-- Admin Premium Header -->
-<div class="dashboard-header py-5 px-4 mb-4 shadow"
-     style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); border-radius: 1.25rem;">
+<div class="dashboard-header py-5 px-4 mb-4">
     <div class="row align-items-center g-3 text-white">
         <div class="col-md-9 text-center text-md-start">
             <h1 class="display-5 fw-bold text-white mb-1">
@@ -15,8 +14,8 @@
             <p class="fs-6 opacity-80 mb-0">Monitor catalog items, process customer orders, and manage system user permissions.</p>
         </div>
         <div class="col-md-3 text-center text-md-end">
-            <div class="d-inline-block bg-white bg-opacity-10 backdrop-blur border border-white border-opacity-10 py-3 px-4 rounded-3 text-white">
-                <span class="small opacity-75 uppercase fw-bold tracking-wider d-block mb-1">Store Products</span>
+            <div class="d-inline-block glass-card py-3 px-4 text-white">
+                <span class="small opacity-75 text-uppercase fw-bold tracking-wider d-block mb-1">Store Products</span>
                 <h2 class="fw-bold mb-0 text-white">@Model.Products.Count</h2>
             </div>
         </div>
@@ -26,22 +25,22 @@
 <!-- Success/Error Notifications -->
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show p-3 shadow-sm rounded-3" role="alert">
-        <i class="fas fa-check-circle me-2 text-success"></i>@TempData["SuccessMessage"]
+    <div class="alert alert-success alert-dismissible fade show p-3 rounded-3" role="alert">
+        <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 @if (TempData["WarningMessage"] != null)
 {
-    <div class="alert alert-warning alert-dismissible fade show p-3 shadow-sm rounded-3" role="alert">
-        <i class="fas fa-exclamation-triangle me-2 text-warning"></i>@TempData["WarningMessage"]
+    <div class="alert alert-warning alert-dismissible fade show p-3 rounded-3" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>@TempData["WarningMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 @if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-danger alert-dismissible fade show p-3 shadow-sm rounded-3" role="alert">
-        <i class="fas fa-exclamation-circle me-2 text-danger"></i>@TempData["ErrorMessage"]
+    <div class="alert alert-danger alert-dismissible fade show p-3 rounded-3" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
@@ -49,57 +48,57 @@
 <!-- Store Summary Cards -->
 <div class="row g-3 mb-4 text-start">
     <div class="col-md-3">
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-4 text-center">
-                <div class="mb-2 text-primary" style="font-size: 2.5rem;"><i class="fas fa-folder"></i></div>
-                <span class="text-muted small uppercase fw-bold tracking-wider mb-1 d-block">Categories</span>
-                <h3 class="fw-bold text-dark mb-0">@Model.Categories.Count</h3>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: var(--accent-glow); color: var(--accent-1);">
+                <i class="fas fa-folder"></i>
             </div>
+            <span class="text-muted small text-uppercase fw-bold d-block mb-1" style="letter-spacing: 0.05em;">Categories</span>
+            <h3 class="fw-bold mb-0" style="color: var(--text-primary);">@Model.Categories.Count</h3>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-4 text-center">
-                <div class="mb-2 text-primary" style="font-size: 2.5rem;"><i class="fas fa-box"></i></div>
-                <span class="text-muted small uppercase fw-bold tracking-wider mb-1 d-block">Products</span>
-                <h3 class="fw-bold text-dark mb-0">@Model.Products.Count</h3>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: var(--info-bg); color: var(--info);">
+                <i class="fas fa-box"></i>
             </div>
+            <span class="text-muted small text-uppercase fw-bold d-block mb-1" style="letter-spacing: 0.05em;">Products</span>
+            <h3 class="fw-bold mb-0" style="color: var(--text-primary);">@Model.Products.Count</h3>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-4 text-center">
-                <div class="mb-2 text-success" style="font-size: 2.5rem;"><i class="fas fa-shopping-basket"></i></div>
-                <span class="text-muted small uppercase fw-bold tracking-wider mb-1 d-block">Total Orders</span>
-                <h3 class="fw-bold text-dark mb-0">@Model.Orders.Count</h3>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: var(--success-bg); color: var(--success);">
+                <i class="fas fa-shopping-basket"></i>
             </div>
+            <span class="text-muted small text-uppercase fw-bold d-block mb-1" style="letter-spacing: 0.05em;">Total Orders</span>
+            <h3 class="fw-bold mb-0" style="color: var(--text-primary);">@Model.Orders.Count</h3>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-4 text-center">
-                <div class="mb-2 text-primary" style="font-size: 2.5rem;"><i class="fas fa-dollar-sign"></i></div>
-                <span class="text-muted small uppercase fw-bold tracking-wider mb-1 d-block">Total Sales</span>
-                <h3 class="fw-bold text-primary mb-0">$@Model.Orders.Where(o => o.OrderStatus == "Delivered").Sum(o => o.TotalPrice).ToString("F2")</h3>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: var(--warning-bg); color: var(--warning);">
+                <i class="fas fa-dollar-sign"></i>
             </div>
+            <span class="text-muted small text-uppercase fw-bold d-block mb-1" style="letter-spacing: 0.05em;">Total Sales</span>
+            <h3 class="fw-bold text-gradient mb-0">$@Model.Orders.Where(o => o.OrderStatus == "Delivered").Sum(o => o.TotalPrice).ToString("F2")</h3>
         </div>
     </div>
 </div>
 
 <!-- Tab Navigation Header -->
-<ul class="nav nav-tabs mb-4 p-2 bg-light rounded-3 d-flex gap-2" role="tablist">
-    <li class="nav-item flex-fill text-center" role="presentation">
-        <button class="nav-link w-100 fw-bold border-0 py-2.5 rounded-3 active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products-content" type="button" role="tab">
+<ul class="nav nav-tabs mb-4" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products-content" type="button" role="tab">
             <i class="fas fa-box me-2"></i>Inventory
         </button>
     </li>
-    <li class="nav-item flex-fill text-center" role="presentation">
-        <button class="nav-link w-100 fw-bold border-0 py-2.5 rounded-3" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders-content" type="button" role="tab">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders-content" type="button" role="tab">
             <i class="fas fa-shopping-cart me-2"></i>Orders
         </button>
     </li>
-    <li class="nav-item flex-fill text-center" role="presentation">
-        <button class="nav-link w-100 fw-bold border-0 py-2.5 rounded-3" id="users-tab" data-bs-toggle="tab" data-bs-target="#users-content" type="button" role="tab">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold" id="users-tab" data-bs-toggle="tab" data-bs-target="#users-content" type="button" role="tab">
             <i class="fas fa-users me-2"></i>User Management
         </button>
     </li>
@@ -125,27 +124,27 @@
             {
                 var categoryProducts = Model.Products.Where(p => p.CategoryId == category.Id).ToList();
                 
-                <div class="card border shadow-sm rounded-3 overflow-hidden mb-5">
+                <div class="card rounded-3 overflow-hidden mb-5" style="border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
                     <!-- Category Admin Header -->
-                    <div class="card-header bg-light border-bottom p-3 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                    <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3" style="background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 1rem 1.25rem;">
                         <div class="d-flex align-items-center gap-3">
                             @if (!string.IsNullOrEmpty(category.IconUrl))
                             {
-                                <img src="@category.IconUrl" alt="@category.Name" class="rounded shadow-xs object-fit-cover" style="width: 45px; height: 45px;" onerror="this.style.display='none'" />
+                                <img src="@category.IconUrl" alt="@category.Name" class="rounded object-fit-cover" style="width: 45px; height: 45px; border: 1px solid var(--border-color);" onerror="this.style.display='none'" />
                             }
                             <div>
-                                <h5 class="fw-bold text-dark mb-0.5"><i class="fas fa-folder me-2 text-primary"></i>@category.Name</h5>
-                                <span class="text-muted small">@category.Description</span>
+                                <h5 class="fw-bold mb-0" style="color: var(--text-primary);"><i class="fas fa-folder me-2" style="color: var(--accent-1);"></i>@category.Name</h5>
+                                <span class="small" style="color: var(--text-muted);">@category.Description</span>
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-2">
-                            <span class="badge bg-primary rounded-pill px-3 py-2 fw-bold text-white small" style="width: auto; height: auto;">@categoryProducts.Count Products</span>
-                            <a class="btn btn-sm btn-outline-secondary px-2.5 py-1.5 rounded-3 fw-semibold ms-2" asp-controller="Admin" asp-action="EditCategory" asp-route-id="@category.Id">
+                            <span class="badge rounded-pill px-3 py-2 fw-bold small" style="background: var(--accent-gradient); color: white;">@categoryProducts.Count Products</span>
+                            <a class="btn btn-sm btn-outline-secondary px-2 py-1 rounded-3 fw-semibold ms-2" asp-controller="Admin" asp-action="EditCategory" asp-route-id="@category.Id">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <form method="post" asp-controller="Admin" asp-action="DeleteCategory" asp-route-id="@category.Id" class="d-inline" onsubmit="return confirm('Delete this category? ALL associated products will also be deleted. This cannot be undone.');">
                                 @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm btn-outline-danger px-2.5 py-1.5 rounded-3 fw-semibold">
+                                <button type="submit" class="btn btn-sm btn-outline-danger px-2 py-1 rounded-3 fw-semibold">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
@@ -153,24 +152,24 @@
                     </div>
 
                     <!-- Category Products Grid -->
-                    <div class="card-body p-4 bg-white">
+                    <div class="card-body p-4" style="background: var(--bg-card);">
                         @if (categoryProducts.Any())
                         {
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                                 @foreach (var product in categoryProducts)
                                 {
                                     <div class="col">
-                                        <div class="card h-100 product-card shadow-sm border rounded-3 position-relative overflow-hidden">
+                                        <div class="card h-100 product-card position-relative overflow-hidden">
                                             <!-- Product Image -->
-                                            <div class="ratio ratio-4x3 bg-light overflow-hidden">
+                                            <div class="ratio ratio-4x3 product-image-wrapper overflow-hidden">
                                                 @if (!string.IsNullOrEmpty(product.ImageUrl))
                                                 {
                                                     <img src="@product.ImageUrl" class="object-fit-cover" alt="@product.Name"
-                                                         onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center bg-light text-muted fs-2\'><i class=\'fas fa-box\'></i></div>';" />
+                                                         onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted fs-2\' style=\'background: var(--bg-tertiary);\'><i class=\'fas fa-box\'></i></div>';" />
                                                 }
                                                 else
                                                 {
-                                                    <div class="d-flex align-items-center justify-content-center bg-light text-muted fs-2">
+                                                    <div class="d-flex align-items-center justify-content-center text-muted fs-2" style="background: var(--bg-tertiary);">
                                                         <i class="fas fa-box"></i>
                                                     </div>
                                                 }
@@ -180,39 +179,39 @@
                                             <div class="position-absolute" style="top: 10px; right: 10px; z-index: 10;">
                                                 @if (product.StockQuantity > 5)
                                                 {
-                                                    <span class="badge bg-success rounded-pill px-2 py-1 shadow-sm fw-bold small" style="font-size: 0.7rem; border-radius: 20px; width: auto; height: auto;">
-                                                        Stock: @product.StockQuantity
+                                                    <span class="product-stock stock-in">
+                                                        <i class="fas fa-circle" style="font-size: 0.4rem;"></i> Stock: @product.StockQuantity
                                                     </span>
                                                 }
                                                 else if (product.StockQuantity > 0)
                                                 {
-                                                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1 shadow-sm fw-bold small" style="font-size: 0.7rem; border-radius: 20px; width: auto; height: auto;">
-                                                        Low Stock: @product.StockQuantity
+                                                    <span class="product-stock" style="background: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning-border);">
+                                                        <i class="fas fa-exclamation-triangle" style="font-size: 0.55rem;"></i> Low: @product.StockQuantity
                                                     </span>
                                                 }
                                                 else
                                                 {
-                                                    <span class="badge bg-danger rounded-pill px-2 py-1 shadow-sm fw-bold small" style="font-size: 0.7rem; border-radius: 20px; width: auto; height: auto;">
-                                                        Out of Stock
+                                                    <span class="product-stock stock-out">
+                                                        <i class="fas fa-times-circle" style="font-size: 0.55rem;"></i> Out of Stock
                                                     </span>
                                                 }
                                             </div>
 
                                             <!-- Product Details body -->
                                             <div class="card-body p-3 d-flex flex-column">
-                                                <h6 class="fw-bold text-dark mb-1 text-truncate" title="@product.Name">@product.Name</h6>
-                                                <p class="text-muted small mb-3 flex-grow-1" style="min-height: 38px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                                <h6 class="fw-bold mb-1 text-truncate" style="color: var(--text-primary);" title="@product.Name">@product.Name</h6>
+                                                <p class="small mb-3 flex-grow-1" style="color: var(--text-muted); min-height: 38px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                                     @product.Description
                                                 </p>
                                                 <div class="mt-auto">
-                                                    <div class="h5 fw-bold text-primary mb-3">$@product.Price.ToString("F2")</div>
+                                                    <div class="product-price mb-3">$@product.Price.ToString("F2")</div>
                                                     <div class="d-flex gap-2">
-                                                        <a class="btn btn-outline-secondary btn-sm flex-grow-1 py-1.5 rounded-3 fw-semibold" asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id">
+                                                        <a class="btn btn-outline-secondary btn-sm flex-grow-1 py-1 rounded-3 fw-semibold" asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id">
                                                             <i class="fas fa-edit me-1"></i>Edit
                                                         </a>
                                                         <form method="post" asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@product.Id" class="d-inline flex-grow-1" onsubmit="return confirm('Are you sure you want to delete this product?');">
                                                             @Html.AntiForgeryToken()
-                                                            <button type="submit" class="btn btn-outline-danger btn-sm py-1.5 rounded-3 fw-semibold w-100">
+                                                            <button type="submit" class="btn btn-outline-danger btn-sm py-1 rounded-3 fw-semibold w-100">
                                                                 <i class="fas fa-trash-alt me-1"></i>Delete
                                                             </button>
                                                         </form>
@@ -226,10 +225,10 @@
                         }
                         else
                         {
-                            <div class="text-center py-4 bg-light border border-dashed rounded-3">
-                                <i class="fas fa-inbox text-muted display-6 mb-2"></i>
-                                <p class="text-muted small mb-3">No products created under this category yet.</p>
-                                <a class="btn btn-sm btn-primary rounded-3 px-3 py-1.5 fw-semibold" asp-controller="Admin" asp-action="AddProduct" asp-route-categoryId="@category.Id">
+                            <div class="text-center py-4 rounded-3" style="background: var(--bg-tertiary); border: 1px dashed var(--border-color);">
+                                <i class="fas fa-inbox display-6 mb-2" style="color: var(--text-muted);"></i>
+                                <p class="small mb-3" style="color: var(--text-muted);">No products created under this category yet.</p>
+                                <a class="btn btn-sm btn-primary rounded-3 px-3 py-1 fw-semibold" asp-controller="Admin" asp-action="AddProduct" asp-route-categoryId="@category.Id">
                                     <i class="fas fa-plus me-1"></i>Add Product
                                 </a>
                             </div>
@@ -240,11 +239,11 @@
         }
         else
         {
-            <div class="text-center py-5 shadow-sm rounded-3 bg-white border">
-                <i class="fas fa-folder-open text-muted display-1 mb-3"></i>
-                <h4 class="fw-bold text-dark">No categories configured</h4>
-                <p class="text-muted mb-4" style="max-width: 400px; margin: 0 auto;">Configure a category first to start structuring products in your inventory store.</p>
-                <a class="btn btn-primary btn-lg px-5 py-3 rounded-3 shadow mt-2" asp-controller="Admin" asp-action="AddCategory">
+            <div class="text-center py-5 rounded-3" style="background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                <i class="fas fa-folder-open display-1 mb-3" style="color: var(--text-muted);"></i>
+                <h4 class="fw-bold" style="color: var(--text-primary);">No categories configured</h4>
+                <p class="mb-4" style="color: var(--text-muted); max-width: 400px; margin: 0 auto;">Configure a category first to start structuring products in your inventory store.</p>
+                <a class="btn btn-primary btn-lg px-5 py-3 rounded-3 mt-2" asp-controller="Admin" asp-action="AddCategory">
                     <i class="fas fa-folder-plus me-2"></i>Create Category
                 </a>
             </div>
@@ -256,7 +255,7 @@
         @if (Model.Orders.Any())
         {
             <!-- Order status category sub-tabs -->
-            <ul class="nav nav-pills mb-4 order-status-pills gap-2 flex-wrap bg-light p-2 rounded-3" id="orderStatusTabs" role="tablist">
+            <ul class="nav nav-pills mb-4 order-status-pills gap-2 flex-wrap p-2 rounded-3" id="orderStatusTabs" role="tablist" style="background: var(--bg-tertiary);">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active fw-bold border-0 rounded-3" id="order-all-tab" data-bs-toggle="pill" data-bs-target="#order-all-pane" type="button" role="tab">
                         <i class="fas fa-list me-1"></i>All Orders (@Model.Orders.Count)
@@ -267,7 +266,7 @@
                     var count = Model.Orders.Count(o => o.OrderStatus == status);
                     <li class="nav-item" role="presentation">
                         <button class="nav-link fw-bold border-0 rounded-3" id="order-@status.ToLower()-tab" data-bs-toggle="pill" data-bs-target="#order-@status.ToLower()-pane" type="button" role="tab">
-                            <span class="badge-status-@status.ToLower() px-2 py-1 rounded-pill me-1" style="font-size: 0.75rem; border-radius: 20px;">●</span>@status (@count)
+                            <span class="status-@status.ToLower() px-2 py-0 rounded-pill me-1" style="font-size: 0.7rem;">●</span>@status (@count)
                         </button>
                     </li>
                 }
@@ -297,46 +296,46 @@
                                     var orderStatusClass = order.OrderStatus.ToLower();
                                     var statusLeftBorderColor = order.OrderStatus switch
                                     {
-                                        "Pending" => "#f59e0b",
-                                        "Processing" => "#3b82f6",
+                                        "Pending" => "var(--warning)",
+                                        "Processing" => "var(--info)",
                                         "Shipped" => "#8b5cf6",
-                                        "Delivered" => "#10b981",
-                                        "Cancelled" => "#ef4444",
-                                        _ => "#f59e0b"
+                                        "Delivered" => "var(--success)",
+                                        "Cancelled" => "var(--danger)",
+                                        _ => "var(--warning)"
                                     };
 
                                     <div class="col-12">
-                                        <div class="card border shadow-sm rounded-3 overflow-hidden" 
+                                        <div class="order-card" 
                                              style="border-left: 5px solid @statusLeftBorderColor !important;">
                                              
                                             <!-- Order Header block -->
-                                            <div class="card-header bg-light border-bottom p-3.5">
+                                            <div style="background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 1rem 1.25rem;">
                                                 <div class="row align-items-center g-3">
                                                     <div class="col-md-4">
-                                                        <span class="badge @(order.OrderStatus == "Pending" ? "bg-warning text-dark" : order.OrderStatus == "Processing" ? "bg-info text-white" : order.OrderStatus == "Shipped" ? "bg-primary text-white" : order.OrderStatus == "Delivered" ? "bg-success text-white" : "bg-danger text-white") px-2.5 py-1.5 rounded-pill float-end d-md-none fw-bold" style="font-size: 0.75rem;">
+                                                        <span class="order-status status-@orderStatusClass float-end d-md-none">
                                                             @order.OrderStatus
                                                         </span>
-                                                        <h5 class="fw-bold text-dark mb-0.5">Order #@order.Id</h5>
-                                                        <span class="text-muted small"><i class="fas fa-calendar-alt me-1 text-primary"></i>@order.OrderDate.ToString("MMMM dd, yyyy h:mm tt")</span>
+                                                        <h5 class="fw-bold mb-0" style="color: var(--text-primary);">Order #@order.Id</h5>
+                                                        <span class="small" style="color: var(--text-muted);"><i class="fas fa-calendar-alt me-1" style="color: var(--accent-1);"></i>@order.OrderDate.ToString("MMMM dd, yyyy h:mm tt")</span>
                                                     </div>
                                                     
                                                     <!-- Buyer Customer Info -->
                                                     <div class="col-md-5">
                                                         <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-white text-primary rounded-circle d-flex align-items-center justify-content-center me-3 border shadow-xs" 
-                                                                 style="width: 42px; height: 42px; font-weight: bold; font-size: 1.05rem;">
+                                                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                                                 style="width: 42px; height: 42px; font-weight: bold; font-size: 1.05rem; background: var(--accent-glow); color: var(--accent-1); border: 1px solid var(--border-color);">
                                                                 @buyerEmail.Substring(0, Math.Min(2, buyerEmail.Length)).ToUpper()
                                                             </div>
                                                             <div>
-                                                                <span class="text-muted small d-block mb-0.5" style="font-size: 0.7rem; font-weight: 600; text-uppercase: true;">Customer</span>
-                                                                <p class="mb-0 fw-bold text-dark">@order.CustomerName (@buyerEmail)</p>
-                                                                <code class="font-monospace text-muted small" style="font-size: 0.75rem;">User ID: @order.UserId</code>
+                                                                <span class="small d-block" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Customer</span>
+                                                                <p class="mb-0 fw-bold" style="color: var(--text-primary);">@order.CustomerName (@buyerEmail)</p>
+                                                                <code class="font-monospace small" style="font-size: 0.75rem;">User ID: @order.UserId</code>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-3 text-md-end d-none d-md-block">
-                                                        <span class="badge @(order.OrderStatus == "Pending" ? "bg-warning text-dark" : order.OrderStatus == "Processing" ? "bg-info text-white" : order.OrderStatus == "Shipped" ? "bg-primary text-white" : order.OrderStatus == "Delivered" ? "bg-success text-white" : "bg-danger text-white") px-3 py-2 rounded-pill fw-bold" style="font-size: 0.75rem; width: auto; height: auto;">
+                                                        <span class="order-status status-@orderStatusClass">
                                                             @order.OrderStatus
                                                         </span>
                                                     </div>
@@ -344,14 +343,14 @@
                                             </div>
 
                                             <!-- Order Items / Shipping address table -->
-                                            <div class="card-body p-4 bg-white">
+                                            <div class="p-4" style="background: var(--bg-card);">
                                                 <div class="row g-4">
                                                     <!-- Ordered Items Table -->
                                                     <div class="col-lg-7">
-                                                        <h6 class="text-uppercase text-muted fw-bold small mb-3"><i class="fas fa-shopping-bag me-2 text-primary"></i>Items Ordered</h6>
-                                                        <div class="table-responsive border rounded bg-light">
+                                                        <h6 class="text-uppercase fw-bold small mb-3" style="color: var(--text-muted); letter-spacing: 0.05em;"><i class="fas fa-shopping-bag me-2" style="color: var(--accent-1);"></i>Items Ordered</h6>
+                                                        <div class="table-responsive rounded" style="border: 1px solid var(--border-color);">
                                                             <table class="table table-hover align-middle mb-0 small">
-                                                                <thead class="table-light">
+                                                                <thead>
                                                                     <tr>
                                                                         <th class="py-2 ps-3">Product Name</th>
                                                                         <th class="py-2 text-center" style="width: 80px;">Qty</th>
@@ -363,17 +362,17 @@
                                                                     @foreach (var item in order.OrderItems)
                                                                     {
                                                                         <tr>
-                                                                            <td class="py-2 ps-3 fw-semibold text-dark">@item.ProductName</td>
-                                                                            <td class="py-2 text-center fw-semibold text-dark">@item.Quantity</td>
-                                                                            <td class="py-2 text-end text-muted">$@item.UnitPrice.ToString("F2")</td>
-                                                                            <td class="py-2 text-end pe-3 fw-bold text-primary">$@((item.Quantity * item.UnitPrice).ToString("F2"))</td>
+                                                                            <td class="py-2 ps-3 fw-semibold" style="color: var(--text-primary);">@item.ProductName</td>
+                                                                            <td class="py-2 text-center fw-semibold" style="color: var(--text-primary);">@item.Quantity</td>
+                                                                            <td class="py-2 text-end" style="color: var(--text-muted);">$@item.UnitPrice.ToString("F2")</td>
+                                                                            <td class="py-2 text-end pe-3 fw-bold text-gradient">$@((item.Quantity * item.UnitPrice).ToString("F2"))</td>
                                                                         </tr>
                                                                     }
                                                                 </tbody>
                                                                 <tfoot>
-                                                                    <tr class="table-light border-top">
-                                                                        <td colspan="3" class="text-end fw-bold text-muted py-2">Grand Total:</td>
-                                                                        <td class="text-end pe-3 fw-bold text-primary py-2 h5 mb-0">$@order.TotalPrice.ToString("F2")</td>
+                                                                    <tr style="border-top: 1px solid var(--border-color);">
+                                                                        <td colspan="3" class="text-end fw-bold py-2" style="color: var(--text-muted);">Grand Total:</td>
+                                                                        <td class="text-end pe-3 fw-bold text-gradient py-2 h5 mb-0">$@order.TotalPrice.ToString("F2")</td>
                                                                     </tr>
                                                                 </tfoot>
                                                             </table>
@@ -382,9 +381,9 @@
 
                                                     <!-- Delivery & Shipment Info -->
                                                     <div class="col-lg-5">
-                                                        <h6 class="text-uppercase text-muted fw-bold small mb-3"><i class="fas fa-truck me-2 text-primary"></i>Shipping Address</h6>
-                                                        <div class="card bg-light border-0 rounded-3 p-3">
-                                                            <div class="small d-flex flex-column gap-2 text-muted">
+                                                        <h6 class="text-uppercase fw-bold small mb-3" style="color: var(--text-muted); letter-spacing: 0.05em;"><i class="fas fa-truck me-2" style="color: var(--accent-1);"></i>Shipping Address</h6>
+                                                        <div class="rounded-3 p-3" style="background: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                                                            <div class="small d-flex flex-column gap-2" style="color: var(--text-secondary);">
                                                                 <div><strong>Shipping Name:</strong> @order.CustomerName</div>
                                                                 <div><strong>Phone Number:</strong> @order.PhoneNumber</div>
                                                                 <div><strong>City:</strong> @order.City</div>
@@ -395,12 +394,12 @@
                                                 </div>
 
                                                 <!-- Status Update form panel -->
-                                                <div class="pt-3.5 mt-3.5 border-top d-flex justify-content-between align-items-center flex-wrap gap-3">
-                                                    <span class="text-muted small"><i class="fas fa-info-circle me-1 text-primary"></i>Update fulfillment state:</span>
+                                                <div class="pt-3 mt-3 d-flex justify-content-between align-items-center flex-wrap gap-3" style="border-top: 1px solid var(--border-color);">
+                                                    <span class="small" style="color: var(--text-muted);"><i class="fas fa-info-circle me-1" style="color: var(--accent-1);"></i>Update fulfillment state:</span>
                                                     <form method="post" asp-controller="Admin" asp-action="UpdateOrderStatus" class="d-flex gap-2">
                                                         @Html.AntiForgeryToken()
                                                         <input type="hidden" name="orderId" value="@order.Id">
-                                                        <select name="status" class="form-select form-select-sm rounded-3 shadow-xs py-1.5" style="width: auto;">
+                                                        <select name="status" class="form-select form-select-sm rounded-3 py-1" style="width: auto;">
                                                             @foreach (var os in Enum.GetNames(typeof(EStore.Models.OrderStatus)))
                                                             {
                                                                 if (order.OrderStatus == os)
@@ -413,7 +412,7 @@
                                                                 }
                                                             }
                                                         </select>
-                                                        <button type="submit" class="btn btn-sm btn-primary rounded-3 px-3.5 fw-semibold shadow-xs">
+                                                        <button type="submit" class="btn btn-sm btn-primary rounded-3 px-3 fw-semibold">
                                                             <i class="fas fa-check me-1"></i>Update
                                                         </button>
                                                     </form>
@@ -426,10 +425,10 @@
                         }
                         else
                         {
-                            <div class="text-center py-5 bg-white rounded border border-dashed">
-                                <i class="fas fa-folder-open text-muted display-4 mb-3"></i>
-                                <h5 class="fw-bold text-dark">No orders found</h5>
-                                <p class="text-muted mb-0 small">There are currently no orders in the "@status" category.</p>
+                            <div class="text-center py-5 rounded-3" style="background: var(--bg-card); border: 1px dashed var(--border-color);">
+                                <i class="fas fa-folder-open display-4 mb-3" style="color: var(--text-muted);"></i>
+                                <h5 class="fw-bold" style="color: var(--text-primary);">No orders found</h5>
+                                <p class="small mb-0" style="color: var(--text-muted);">There are currently no orders in the "@status" category.</p>
                             </div>
                         }
                     </div>
@@ -438,26 +437,26 @@
         }
         else
         {
-            <div class="text-center py-5 shadow-sm rounded-3 bg-white border">
-                <i class="fas fa-box-open text-muted display-1 mb-3"></i>
-                <h4 class="fw-bold text-dark">No orders yet</h4>
-                <p class="text-muted mb-0 small">Customers haven't placed any shopping orders yet. Sales tracking will display here.</p>
+            <div class="text-center py-5 rounded-3" style="background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                <i class="fas fa-box-open display-1 mb-3" style="color: var(--text-muted);"></i>
+                <h4 class="fw-bold" style="color: var(--text-primary);">No orders yet</h4>
+                <p class="small mb-0" style="color: var(--text-muted);">Customers haven't placed any shopping orders yet. Sales tracking will display here.</p>
             </div>
         }
     </div>
 
     <!-- Users Management Tab -->
     <div class="tab-pane fade" id="users-content" role="tabpanel">
-        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-            <div class="card-header bg-light border-bottom p-3">
-                <h6 class="fw-bold text-dark mb-0 d-flex align-items-center">
-                    <i class="fas fa-users me-2 text-primary"></i>User Account Roles
+        <div class="card rounded-3 overflow-hidden" style="border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+            <div class="card-header" style="background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 1rem 1.25rem;">
+                <h6 class="fw-bold mb-0 d-flex align-items-center" style="color: var(--text-primary);">
+                    <i class="fas fa-users me-2" style="color: var(--accent-1);"></i>User Account Roles
                 </h6>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0 small">
-                        <thead class="table-light">
+                        <thead>
                             <tr>
                                 <th class="py-3 ps-3">User Email</th>
                                 <th class="py-3">User UUID</th>
@@ -472,24 +471,24 @@
                                 var isCurrentUser = User.Identity?.Name == user.UserName;
 
                                 <tr>
-                                    <td class="py-3 ps-3 fw-bold text-dark">
-                                        <i class="fas fa-user-circle text-muted me-2 fs-5"></i>@user.UserName
+                                    <td class="py-3 ps-3 fw-bold" style="color: var(--text-primary);">
+                                        <i class="fas fa-user-circle me-2 fs-5" style="color: var(--text-muted);"></i>@user.UserName
                                         @if (isCurrentUser)
                                         {
-                                            <span class="badge bg-info ms-2 rounded-pill shadow-xs" style="width: auto; height: auto;">You</span>
+                                            <span class="badge rounded-pill ms-2" style="background: var(--info-bg); color: var(--info); border: 1px solid var(--info-border);">You</span>
                                         }
                                     </td>
-                                    <td class="py-3"><code class="font-monospace text-muted" style="font-size: 0.75rem;">@user.Id</code></td>
+                                    <td class="py-3"><code class="font-monospace" style="font-size: 0.75rem;">@user.Id</code></td>
                                     <td class="py-3">
                                         @if (userRole == "Admin")
                                         {
-                                            <span class="badge bg-danger rounded-pill px-2.5 py-1.5 fw-bold" style="font-size: 0.7rem; width: auto; height: auto; display: inline-block;">
+                                            <span class="order-status status-cancelled">
                                                 <i class="fas fa-shield-alt me-1"></i>Administrator
                                             </span>
                                         }
                                         else
                                         {
-                                            <span class="badge bg-secondary rounded-pill px-2.5 py-1.5 fw-semibold text-white" style="font-size: 0.7rem; width: auto; height: auto; display: inline-block;">
+                                            <span class="order-status" style="background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);">
                                                 <i class="fas fa-user me-1"></i>Standard User
                                             </span>
                                         }

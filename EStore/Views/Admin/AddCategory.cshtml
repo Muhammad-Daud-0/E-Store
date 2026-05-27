@@ -4,47 +4,47 @@
     ViewData["Title"] = "Add Category";
 }
 
-<div style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); color: white; padding: 3rem 2rem; border-radius: 1rem; margin-bottom: 3rem;">
-    <h1 style="color: white;">
+<div class="dashboard-header py-5 px-4 mb-4">
+    <h1 class="fw-bold text-white mb-1">
         <i class="fas fa-plus me-2"></i>Add New Category
     </h1>
-    <p class="text-white-50 mt-2">Create a new product category</p>
+    <p class="mb-0 mt-2" style="color: rgba(255,255,255,0.7);">Create a new product category</p>
 </div>
 
 <div class="row">
     <div class="col-lg-8">
-        <div class="card border-0 shadow-sm">
+        <div class="card rounded-3 overflow-hidden" style="border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
             <div class="card-body p-4">
                 <form method="post" asp-action="AddCategory">
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
                     <div class="mb-3">
-                        <label asp-for="Name" class="form-label fw-bold">Category Name</label>
+                        <label asp-for="Name" class="form-label fw-bold" style="color: var(--text-primary);">Category Name</label>
                         <input asp-for="Name" class="form-control" placeholder="e.g., Electronics, Clothing, Books" />
-                        <span asp-validation-for="Name" class="text-danger small"></span>
+                        <span asp-validation-for="Name" class="small" style="color: var(--danger);"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Description" class="form-label fw-bold">Description</label>
+                        <label asp-for="Description" class="form-label fw-bold" style="color: var(--text-primary);">Description</label>
                         <textarea asp-for="Description" class="form-control" rows="4" placeholder="Describe this category..."></textarea>
-                        <span asp-validation-for="Description" class="text-danger small"></span>
+                        <span asp-validation-for="Description" class="small" style="color: var(--danger);"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="IconUrl" class="form-label fw-bold">Icon URL</label>
+                        <label asp-for="IconUrl" class="form-label fw-bold" style="color: var(--text-primary);">Icon URL</label>
                         <input asp-for="IconUrl" class="form-control" placeholder="https://example.com/icon.png" />
-                        <small class="text-muted d-block mt-1">
+                        <small class="d-block mt-1" style="color: var(--text-muted);">
                             <i class="fas fa-info-circle me-1"></i>
                             Provide a URL to an icon image for this category
                         </small>
-                        <span asp-validation-for="IconUrl" class="text-danger small"></span>
+                        <span asp-validation-for="IconUrl" class="small" style="color: var(--danger);"></span>
                     </div>
 
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary py-2 px-4 fw-bold">
                             <i class="fas fa-save me-2"></i>Create Category
                         </button>
-                        <a asp-action="Dashboard" class="btn btn-secondary">
+                        <a asp-action="Dashboard" class="btn btn-outline-secondary py-2 px-4 fw-semibold">
                             <i class="fas fa-times me-2"></i>Cancel
                         </a>
                     </div>
