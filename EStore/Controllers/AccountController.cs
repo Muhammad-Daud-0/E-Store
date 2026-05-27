@@ -9,11 +9,11 @@ namespace EStore.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -67,7 +67,7 @@ namespace EStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName, PhoneNumber = model.PhoneNumber, ShippingAddress = model.ShippingAddress, City = model.City };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -136,7 +136,7 @@ namespace EStore.Controllers
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                user = new IdentityUser { UserName = email, Email = email };
+                user = new ApplicationUser { UserName = email, Email = email };
                 var createResult = await _userManager.CreateAsync(user);
 
                 if (createResult.Succeeded)

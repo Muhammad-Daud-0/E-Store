@@ -11,10 +11,10 @@ namespace EStore.Controllers
     public class UserController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public UserController(AppDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public UserController(AppDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
@@ -97,7 +97,7 @@ namespace EStore.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateProfile(string email, string phoneNumber, string? returnUrl = null)
+        public async Task<IActionResult> UpdateProfile(string email, string phoneNumber, string fullName, string shippingAddress, string city, string? returnUrl = null)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId))
@@ -127,6 +127,14 @@ namespace EStore.Controllers
             user.Email = email;
             user.UserName = email;
             user.PhoneNumber = phoneNumber;
+            // Update profile fields
+            if (user is ApplicationUser appUser)
+            {
+                appUser.FullName = fullName ?? appUser.FullName;
+                appUser.ShippingAddress = shippingAddress ?? appUser.ShippingAddress;
+                appUser.City = city ?? appUser.City;
+                user = appUser;
+            }
 
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)

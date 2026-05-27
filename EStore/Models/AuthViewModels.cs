@@ -30,5 +30,18 @@ namespace EStore.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Full name is required")]
+        [MaxLength(100)]
+        public string FullName { get; set; } = string.Empty;
+
+        [Phone(ErrorMessage = "Invalid phone number")]
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        [MaxLength(300)]
+        public string ShippingAddress { get; set; } = string.Empty;
+
+        [MaxLength(100)]
+        public string City { get; set; } = string.Empty;
     }
 }

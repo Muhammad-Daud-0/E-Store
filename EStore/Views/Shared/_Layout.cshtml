@@ -218,7 +218,7 @@
                     var msg = null;
                     var type = null;
                     // Prefer explicit Notification keys, fall back to Success/Error keys used elsewhere
-                    msg = @(TempData["NotificationMessage"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["NotificationMessage"].ToString())) : "null");
+                    @* msg = @(TempData["NotificationMessage"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["NotificationMessage"].ToString())) : "null");
                     type = @(TempData["NotificationType"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["NotificationType"].ToString())) : "null");
                     if (msg === null) {
                     msg = @(TempData["SuccessMessage"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["SuccessMessage"].ToString())) : "null");
@@ -227,8 +227,8 @@
                     if (msg === null) {
                     msg = @(TempData["ErrorMessage"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["ErrorMessage"].ToString())) : "null");
                     if (msg !== null) type = 'error';
-                    }
-
+                    } *@
+                    
                     if (msg !== null) {
                     document.addEventListener('DOMContentLoaded', function () {
                     try { showNotification(msg, type || 'info'); } catch (e) { /* fail silently if script not loaded */ }

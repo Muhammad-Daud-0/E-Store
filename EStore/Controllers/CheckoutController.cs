@@ -42,6 +42,16 @@ namespace EStore.Controllers
                 CustomerEmail = User.FindFirst(ClaimTypes.Email)?.Value ?? User.Identity?.Name ?? string.Empty
             };
 
+            // Try to prefill checkout fields from user's profile if present
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            if (user != null)
+            {
+                model.CustomerName = (user as ApplicationUser)?.FullName ?? model.CustomerName;
+                model.ShippingAddress = (user as ApplicationUser)?.ShippingAddress ?? model.ShippingAddress;
+                model.City = (user as ApplicationUser)?.City ?? model.City;
+                model.PhoneNumber = user.PhoneNumber ?? model.PhoneNumber;
+            }
+
             return View(model);
         }
 

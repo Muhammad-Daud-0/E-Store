@@ -18,74 +18,124 @@
         @if (ViewData.ModelState.Values.Any(v => v.Errors.Any()))
         {
             <div class="alert alert-danger mb-4 shadow-xs" role="alert">
-                <p class="mb-2 fw-semibold"><i class="fas fa-exclamation-circle me-1 text-danger"></i> Please check the following:</p>
-                <ul class="mb-0 ps-3 small text-danger">
-                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                    {
-                        <li>@error.ErrorMessage</li>
-                    }
-                </ul>
+                <p class="mb-2 fw-semibold"><i class="fas fa-exclamation-circle me-1 text-danger"></i> Please check the
+                    following:</p>
+                    <ul class="mb-0 ps-3 small text-danger">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <form method="post" asp-action="Register">
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
+                        <i class="fas fa-envelope me-1" style="color: var(--accent-1);"></i> Email Address
+                    </label>
+                    <input asp-for="Email" class="form-control py-2 rounded-3" placeholder="name@example.com" required
+                           autocomplete="email" />
+                    <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
+                    <small class="form-text small mt-1" style="color: var(--text-muted);">We respect your privacy and will
+                        never share your email address.</small>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
+                            <i class="fas fa-lock me-1" style="color: var(--accent-1);"></i> Password
+                        </label>
+                        <input asp-for="Password" class="form-control py-2 rounded-3" placeholder="••••••••" required
+                               autocomplete="new-password" />
+                        <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
+                        <small class="form-text small mt-1" style="color: var(--text-muted);">
+                            <i class="fas fa-info-circle me-1" style="color: var(--accent-1);"></i> Must be at least 8
+                            characters with digits, uppercase & lowercase.
+                        </small>
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="mb-3">
+                        <label asp-for="ConfirmPassword" class="form-label small fw-bold mb-1"
+                               style="color: var(--text-secondary);">
+                            <i class="fas fa-check-circle me-1" style="color: var(--accent-1);"></i> Confirm Password
+                        </label>
+                        <input asp-for="ConfirmPassword" class="form-control py-2 rounded-3" placeholder="••••••••" required
+                               autocomplete="new-password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Terms Checkbox -->
+                    <!-- Full Name -->
+                    <div class="mb-3">
+                        <label asp-for="FullName" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
+                            <i class="fas fa-user me-1" style="color: var(--accent-1);"></i> Full Name
+                        </label>
+                        <input asp-for="FullName" class="form-control py-2 rounded-3" placeholder="Your full name" required />
+                        <span asp-validation-for="FullName" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="mb-3">
+                        <label asp-for="PhoneNumber" class="form-label small fw-bold mb-1"
+                               style="color: var(--text-secondary);">
+                            <i class="fas fa-phone me-1" style="color: var(--accent-1);"></i> Phone Number
+                        </label>
+                        <input asp-for="PhoneNumber" class="form-control py-2 rounded-3" placeholder="e.g. +1 555-0123" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="mb-3">
+                        <label asp-for="ShippingAddress" class="form-label small fw-bold mb-1"
+                               style="color: var(--text-secondary);">
+                            <i class="fas fa-map-marker-alt me-1" style="color: var(--accent-1);"></i> Shipping Address
+                        </label>
+                        <input asp-for="ShippingAddress" class="form-control py-2 rounded-3"
+                               placeholder="Street, building, apartment" />
+                        <span asp-validation-for="ShippingAddress" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- City -->
+                    <div class="mb-3">
+                        <label asp-for="City" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
+                            <i class="fas fa-city me-1" style="color: var(--accent-1);"></i> City
+                        </label>
+                        <input asp-for="City" class="form-control py-2 rounded-3" placeholder="City" />
+                        <span asp-validation-for="City" class="text-danger small mt-1 d-block"></span>
+                    </div>
+                    <div class="mb-4 form-check d-flex align-items-start gap-2">
+                        <input type="checkbox" id="Terms" name="Terms" class="form-check-input mt-1" required />
+                        <label for="Terms" class="form-check-label small" style="color: var(--text-muted);">
+                            I agree to the <a asp-controller="Home" asp-action="Privacy"
+                                          class="text-decoration-none fw-bold hover-link" style="color: var(--accent-1);">Terms of
+                            Service</a> and <a asp-controller="Home" asp-action="Privacy"
+                                           class="text-decoration-none fw-bold hover-link" style="color: var(--accent-1);">Privacy
+                            Policy</a>.
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold rounded-3 mb-3">
+                        <i class="fas fa-user-plus me-2"></i>Create Account
+                    </button>
+                </form>
+
+                <!-- Login Link -->
+                <div class="text-center pt-3">
+                    <p class="small mb-0" style="color: var(--text-muted);">
+                        Already have an E-Store account?
+                        <a asp-controller="Account" asp-action="Login" class="fw-bold text-decoration-none hover-link"
+                           style="color: var(--accent-1);">
+                            Sign in here
+                        </a>
+                    </p>
+                </div>
             </div>
-        }
-
-        <form method="post" asp-action="Register">
-            <!-- Email Field -->
-            <div class="mb-3">
-                <label asp-for="Email" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
-                    <i class="fas fa-envelope me-1" style="color: var(--accent-1);"></i> Email Address
-                </label>
-                <input asp-for="Email" class="form-control py-2 rounded-3" placeholder="name@example.com" required autocomplete="email" />
-                <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
-                <small class="form-text small mt-1" style="color: var(--text-muted);">We respect your privacy and will never share your email address.</small>
-            </div>
-
-            <!-- Password Field -->
-            <div class="mb-3">
-                <label asp-for="Password" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
-                    <i class="fas fa-lock me-1" style="color: var(--accent-1);"></i> Password
-                </label>
-                <input asp-for="Password" class="form-control py-2 rounded-3" placeholder="••••••••" required autocomplete="new-password" />
-                <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
-                <small class="form-text small mt-1" style="color: var(--text-muted);">
-                    <i class="fas fa-info-circle me-1" style="color: var(--accent-1);"></i> Must be at least 8 characters with digits, uppercase & lowercase.
-                </small>
-            </div>
-
-            <!-- Confirm Password Field -->
-            <div class="mb-3">
-                <label asp-for="ConfirmPassword" class="form-label small fw-bold mb-1" style="color: var(--text-secondary);">
-                    <i class="fas fa-check-circle me-1" style="color: var(--accent-1);"></i> Confirm Password
-                </label>
-                <input asp-for="ConfirmPassword" class="form-control py-2 rounded-3" placeholder="••••••••" required autocomplete="new-password" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger small mt-1 d-block"></span>
-            </div>
-
-            <!-- Terms Checkbox -->
-            <div class="mb-4 form-check d-flex align-items-start gap-2">
-                <input type="checkbox" id="Terms" name="Terms" class="form-check-input mt-1" required />
-                <label for="Terms" class="form-check-label small" style="color: var(--text-muted);">
-                    I agree to the <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none fw-bold hover-link" style="color: var(--accent-1);">Terms of Service</a> and <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none fw-bold hover-link" style="color: var(--accent-1);">Privacy Policy</a>.
-                </label>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold rounded-3 mb-3">
-                <i class="fas fa-user-plus me-2"></i>Create Account
-            </button>
-        </form>
-
-        <!-- Login Link -->
-        <div class="text-center pt-3">
-            <p class="small mb-0" style="color: var(--text-muted);">
-                Already have an E-Store account?
-                <a asp-controller="Account" asp-action="Login" class="fw-bold text-decoration-none hover-link" style="color: var(--accent-1);">
-                    Sign in here
-                </a>
-            </p>
         </div>
-    </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }

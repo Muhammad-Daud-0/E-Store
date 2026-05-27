@@ -5,7 +5,7 @@ namespace EStore.Models
 {
     public class UserDashboardViewModel
     {
-        public IdentityUser? User { get; set; }
+        public ApplicationUser? User { get; set; }
         public List<Order> Orders { get; set; } = new List<Order>();
     }
 
@@ -14,9 +14,9 @@ namespace EStore.Models
         public List<Category> Categories { get; set; } = new List<Category>();
         public List<Product> Products { get; set; } = new List<Product>();
         public List<Order> Orders { get; set; } = new List<Order>();
-        public List<IdentityUser> Users { get; set; } = new List<IdentityUser>();
+        public List<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
         public Dictionary<string, string> UserRoles { get; set; } = new Dictionary<string, string>();
-        public IdentityUser? CurrentUser { get; set; }
+        public ApplicationUser? CurrentUser { get; set; }
     }
 
     public class HomePageViewModel

@@ -11,13 +11,13 @@ namespace EStore.Controllers
     {
         private readonly AppDbContext _context;
         private readonly ILogger<AdminController> _logger;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AdminController(
             AppDbContext context,
             ILogger<AdminController> logger,
-            UserManager<IdentityUser> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             _context = context;

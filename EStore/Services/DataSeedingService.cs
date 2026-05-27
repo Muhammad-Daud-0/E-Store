@@ -9,13 +9,13 @@ namespace EStore.Services
     {
         private readonly AppDbContext _dbContext;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<DataSeedingService> _logger;
 
         public DataSeedingService(
             AppDbContext dbContext,
             RoleManager<IdentityRole> roleManager,
-            UserManager<IdentityUser> userManager,
+            UserManager<ApplicationUser> userManager,
             ILogger<DataSeedingService> logger)
         {
             _dbContext = dbContext;
@@ -67,7 +67,7 @@ namespace EStore.Services
             var adminUser = await _userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)
             {
-                adminUser = new IdentityUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
+                adminUser = new ApplicationUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
                 // WARNING: Move hardcoded password to User Secrets or environment variables for production
                 var result = await _userManager.CreateAsync(adminUser, "Password123!");
                 if (result.Succeeded)
@@ -82,7 +82,7 @@ namespace EStore.Services
             var regularUser = await _userManager.FindByEmailAsync(userEmail);
             if (regularUser == null)
             {
-                regularUser = new IdentityUser { UserName = userEmail, Email = userEmail, EmailConfirmed = true };
+                regularUser = new ApplicationUser { UserName = userEmail, Email = userEmail, EmailConfirmed = true };
                 var result = await _userManager.CreateAsync(regularUser, "Password123!");
                 if (result.Succeeded)
                 {

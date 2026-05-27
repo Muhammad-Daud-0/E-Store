@@ -72,11 +72,23 @@
                             <span class="fw-semibold" style="color: var(--text-primary);"><i class="fas fa-envelope me-2" style="color: var(--accent-1);"></i>@Model.User?.Email</span>
                         </div>
                         <div class="mb-3 pb-3" style="border-bottom: 1px solid var(--border-color);">
+                            <span class="small text-uppercase fw-bold d-block mb-1" style="color: var(--text-muted); letter-spacing: 0.05em;">Full Name</span>
+                            <span class="fw-semibold" style="color: var(--text-primary);"><i class="fas fa-user me-2" style="color: var(--accent-1);"></i>@(Model.User?.FullName ?? "-")</span>
+                        </div>
+                        <div class="mb-3 pb-3" style="border-bottom: 1px solid var(--border-color);">
                             <span class="small text-uppercase fw-bold d-block mb-1" style="color: var(--text-muted); letter-spacing: 0.05em;">Phone Number</span>
                             <span class="fw-semibold" style="color: var(--text-primary);">
                                 <i class="fas fa-phone me-2" style="color: var(--accent-1);"></i>
                                 @(string.IsNullOrEmpty(Model.User?.PhoneNumber) ? "Not Provided" : Model.User.PhoneNumber)
                             </span>
+                        </div>
+                        <div class="mb-3 pb-3" style="border-bottom: 1px solid var(--border-color);">
+                            <span class="small text-uppercase fw-bold d-block mb-1" style="color: var(--text-muted); letter-spacing: 0.05em;">Shipping Address</span>
+                            <span class="fw-semibold" style="color: var(--text-primary);">@(Model.User?.ShippingAddress ?? "Not Provided")</span>
+                        </div>
+                        <div class="mb-0">
+                            <span class="small text-uppercase fw-bold d-block mb-2" style="color: var(--text-muted); letter-spacing: 0.05em;">City</span>
+                            <span class="fw-semibold" style="color: var(--text-primary);">@(Model.User?.City ?? "-")</span>
                         </div>
                         <div class="mb-0">
                             <span class="small text-uppercase fw-bold d-block mb-2" style="color: var(--text-muted); letter-spacing: 0.05em;">Account Status</span>
@@ -306,7 +318,18 @@
                         <form method="post" asp-controller="User" asp-action="UpdateProfile">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="returnUrl" value="/User/Dashboard?tab=profile" />
-                            
+                            <div class="mb-3">
+                                <label class="form-label" for="profileFullName">Full Name</label>
+                                <input type="text" id="profileFullName" name="fullName" class="form-control" value="@Model.User?.FullName" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="profileAddress">Shipping Address</label>
+                                <input type="text" id="profileAddress" name="shippingAddress" class="form-control" value="@Model.User?.ShippingAddress" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="profileCity">City</label>
+                                <input type="text" id="profileCity" name="city" class="form-control" value="@Model.User?.City" />
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label" for="profileEmail">Email Address</label>
                                 <div class="input-group">
