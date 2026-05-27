@@ -23,6 +23,11 @@ namespace EStore.Models
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Description).HasMaxLength(500);
                 entity.Property(e => e.IconUrl).HasMaxLength(500);
+
+                entity.HasOne(e => e.ParentCategory)
+                    .WithMany(c => c.SubCategories)
+                    .HasForeignKey(e => e.ParentCategoryId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<Product>(entity =>

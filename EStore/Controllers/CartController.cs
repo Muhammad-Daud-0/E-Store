@@ -69,6 +69,7 @@ namespace EStore.Controllers
             };
 
             _cartService.AddToCart(userId, cartItem);
+            TempData["SuccessMessage"] = $"{product.Name} added to cart.";
             return RedirectToAction("Index");
         }
 
@@ -83,6 +84,7 @@ namespace EStore.Controllers
             }
 
             _cartService.RemoveFromCart(userId, productId);
+            TempData["SuccessMessage"] = "Item removed from cart.";
             return RedirectToAction("Index");
         }
 
@@ -99,6 +101,7 @@ namespace EStore.Controllers
             if (quantity < 1)
             {
                 _cartService.RemoveFromCart(userId, productId);
+                TempData["SuccessMessage"] = "Item removed from cart.";
             }
             else
             {
@@ -113,6 +116,7 @@ namespace EStore.Controllers
                     return RedirectToAction("Index");
                 }
                 _cartService.UpdateCartItemQuantity(userId, productId, quantity);
+                TempData["SuccessMessage"] = "Cart updated.";
             }
 
             return RedirectToAction("Index");
@@ -129,6 +133,7 @@ namespace EStore.Controllers
             }
 
             _cartService.ClearCart(userId);
+            TempData["SuccessMessage"] = "Cart cleared.";
             return RedirectToAction("Index");
         }
 

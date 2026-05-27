@@ -32,6 +32,8 @@ namespace EStore.Models
         public decimal? MinRating { get; set; }
         public decimal MaxPriceInDb { get; set; }
 
+        public string ViewMode { get; set; } = "pages"; // "pages" or "scroll"
+
         // Pagination
         public int CurrentPage { get; set; } = 1;
         public int PageSize { get; set; } = 12;

@@ -16,6 +16,10 @@ namespace EStore.Models
         public string IconUrl { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public int? ParentCategoryId { get; set; }
+        public Category? ParentCategory { get; set; }
+        public ICollection<Category> SubCategories { get; set; } = new List<Category>();
+
         // Navigation property
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }

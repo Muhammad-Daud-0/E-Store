@@ -114,32 +114,84 @@ namespace EStore.Services
                 _dbContext.Categories.RemoveRange(_dbContext.Categories);
                 await _dbContext.SaveChangesAsync();
 
+                // 1. Seed Parent Categories
+                var parentCategories = new List<Category>
+                {
+                    new Category { Name = "Electronics & Gadgets", Description = "High-tech gadgets, personal computers, accessories and tablets", IconUrl = "https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp", CreatedAt = DateTime.UtcNow },
+                    new Category { Name = "Fashion & Apparel", Description = "Premium clothing, footwear, watches, and bags for men and women", IconUrl = "https://cdn.dummyjson.com/product-images/mens-watches/brown-leather-belt-watch/thumbnail.webp", CreatedAt = DateTime.UtcNow },
+                    new Category { Name = "Home & Living", Description = "Stylish furniture, home decoration, and kitchen accessories", IconUrl = "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/thumbnail.webp", CreatedAt = DateTime.UtcNow },
+                    new Category { Name = "Personal Care", Description = "Beauty, fragrance, and skin care collections", IconUrl = "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp", CreatedAt = DateTime.UtcNow },
+                    new Category { Name = "Groceries & Daily Essentials", Description = "Fresh groceries, daily supplies, and pantry items", IconUrl = "https://cdn.dummyjson.com/product-images/groceries/apple/thumbnail.webp", CreatedAt = DateTime.UtcNow },
+                    new Category { Name = "Automotive & Sports", Description = "Vehicles, motorcycles, and active sports accessories", IconUrl = "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/thumbnail.webp", CreatedAt = DateTime.UtcNow }
+                };
+
+                _dbContext.Categories.AddRange(parentCategories);
+                await _dbContext.SaveChangesAsync();
+
+                var parentMap = parentCategories.ToDictionary(pc => pc.Name, pc => pc.Id);
+
+                // Subcategory to Parent category mapping
+                var subCategoryMappings = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                {
+                    { "Laptops", "Electronics & Gadgets" },
+                    { "Mobile Accessories", "Electronics & Gadgets" },
+                    { "Smartphones", "Electronics & Gadgets" },
+                    { "Tablets", "Electronics & Gadgets" },
+                    { "Mens Shirts", "Fashion & Apparel" },
+                    { "Mens Shoes", "Fashion & Apparel" },
+                    { "Mens Watches", "Fashion & Apparel" },
+                    { "Sunglasses", "Fashion & Apparel" },
+                    { "Tops", "Fashion & Apparel" },
+                    { "Womens Bags", "Fashion & Apparel" },
+                    { "Womens Dresses", "Fashion & Apparel" },
+                    { "Womens Jewellery", "Fashion & Apparel" },
+                    { "Womens Shoes", "Fashion & Apparel" },
+                    { "Womens Watches", "Fashion & Apparel" },
+                    { "Furniture", "Home & Living" },
+                    { "Home Decoration", "Home & Living" },
+                    { "Kitchen Accessories", "Home & Living" },
+                    { "Beauty", "Personal Care" },
+                    { "Fragrances", "Personal Care" },
+                    { "Skin Care", "Personal Care" },
+                    { "Groceries", "Groceries & Daily Essentials" },
+                    { "Motorcycle", "Automotive & Sports" },
+                    { "Vehicle", "Automotive & Sports" },
+                    { "Sports Accessories", "Automotive & Sports" }
+                };
+
                 var jsonContent = await File.ReadAllTextAsync(seedDataPath);
                 using (JsonDocument doc = JsonDocument.Parse(jsonContent))
                 {
                     var root = doc.RootElement;
 
-                    // Seed categories first
+                    // Seed subcategories under parents
                     var categoriesArray = root.GetProperty("categories");
                     var categoryMap = new Dictionary<string, int>();
 
                     foreach (var categoryElement in categoriesArray.EnumerateArray())
                     {
-                        var categoryName = categoryElement.GetProperty("name").GetString();
-                        var categoryDescription = categoryElement.GetProperty("description").GetString();
-                        var categoryIconUrl = categoryElement.GetProperty("iconUrl").GetString();
+                        var categoryName = categoryElement.GetProperty("name").GetString() ?? string.Empty;
+                        var categoryDescription = categoryElement.GetProperty("description").GetString() ?? string.Empty;
+                        var categoryIconUrl = categoryElement.GetProperty("iconUrl").GetString() ?? string.Empty;
+
+                        int? parentId = null;
+                        if (subCategoryMappings.TryGetValue(categoryName, out var parentName) && parentMap.TryGetValue(parentName, out var pId))
+                        {
+                            parentId = pId;
+                        }
 
                         var category = new Category
                         {
-                            Name = categoryName ?? string.Empty,
-                            Description = categoryDescription ?? string.Empty,
-                            IconUrl = categoryIconUrl ?? string.Empty,
+                            Name = categoryName,
+                            Description = categoryDescription,
+                            IconUrl = categoryIconUrl,
+                            ParentCategoryId = parentId,
                             CreatedAt = DateTime.UtcNow
                         };
 
                         _dbContext.Categories.Add(category);
                         await _dbContext.SaveChangesAsync();
-                        categoryMap[categoryName ?? ""] = category.Id;
+                        categoryMap[categoryName] = category.Id;
                     }
 
                     // Seed products
@@ -186,14 +238,18 @@ namespace EStore.Services
             // Fallback: seed products with categories inline if JSON file not found
             if (!_dbContext.Categories.Any())
             {
-                var categories = new[]
+                var parent = new Category { Name = "Electronics & Gadgets", Description = "High-tech gadgets, personal computers, accessories and tablets", IconUrl = "https://images.unsplash.com/photo-1550355291-bbee04a92027?w=100", CreatedAt = DateTime.UtcNow };
+                _dbContext.Categories.Add(parent);
+                await _dbContext.SaveChangesAsync();
+
+                var subCategories = new[]
                 {
-                    new Category { Name = "Electronics", Description = "High-tech gadgets", IconUrl = "https://images.unsplash.com/photo-1550355291-bbee04a92027?w=100", CreatedAt = DateTime.UtcNow },
-                    new Category { Name = "Office Equipment", Description = "Professional office furniture", IconUrl = "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=100", CreatedAt = DateTime.UtcNow },
-                    new Category { Name = "Audio & Video", Description = "Premium audio and video equipment", IconUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100", CreatedAt = DateTime.UtcNow }
+                    new Category { Name = "Electronics", Description = "High-tech gadgets", IconUrl = "https://images.unsplash.com/photo-1550355291-bbee04a92027?w=100", ParentCategoryId = parent.Id, CreatedAt = DateTime.UtcNow },
+                    new Category { Name = "Office Equipment", Description = "Professional office furniture", IconUrl = "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=100", ParentCategoryId = parent.Id, CreatedAt = DateTime.UtcNow },
+                    new Category { Name = "Audio & Video", Description = "Premium audio and video equipment", IconUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100", ParentCategoryId = parent.Id, CreatedAt = DateTime.UtcNow }
                 };
 
-                _dbContext.Categories.AddRange(categories);
+                _dbContext.Categories.AddRange(subCategories);
                 await _dbContext.SaveChangesAsync();
             }
 

@@ -41,6 +41,7 @@ namespace EStore.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user.UserName!, model.Password, model.RememberMe, lockoutOnFailure: true);
                     if (result.Succeeded)
                     {
+                        TempData["SuccessMessage"] = "Logged in successfully.";
                         return LocalRedirect(returnUrl ?? "/");
                     }
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -78,6 +79,7 @@ namespace EStore.Controllers
 
                     await _userManager.AddToRoleAsync(user, "User");
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    TempData["SuccessMessage"] = "Account created and signed in.";
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -95,6 +97,7 @@ namespace EStore.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            TempData["SuccessMessage"] = "You have been logged out.";
             return RedirectToAction("Index", "Home");
         }
 

@@ -35,6 +35,15 @@
                         <span asp-validation-for="Name" class="small mt-1 d-block" style="color: var(--danger);"></span>
                     </div>
 
+                    <!-- Parent Category -->
+                    <div class="mb-3">
+                        <label asp-for="ParentCategoryId" class="form-label small fw-bold mb-1" style="color: var(--text-muted);">Parent Category (Optional)</label>
+                        <select asp-for="ParentCategoryId" class="form-select rounded-3 py-2" asp-items="@(new SelectList(ViewBag.ParentCategories ?? new List<Category>(), "Id", "Name"))">
+                            <option value="">-- None (Make it a Parent Category) --</option>
+                        </select>
+                        <span asp-validation-for="ParentCategoryId" class="small mt-1 d-block" style="color: var(--danger);"></span>
+                    </div>
+
                     <!-- Description -->
                     <div class="mb-3">
                         <label asp-for="Description" class="form-label small fw-bold mb-1" style="color: var(--text-muted);">Category Description</label>

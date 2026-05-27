@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using EStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +21,7 @@ namespace EStore.Controllers
             decimal? maxPrice = null,
             decimal? minRating = null,
             string? sort = "name",
+            string viewMode = "pages",
             int page = 1,
             int pageSize = 12)
         {
@@ -35,10 +36,22 @@ namespace EStore.Controllers
                 query = query.Where(p => p.Name.ToLower().Contains(searchTerm) || p.Description.ToLower().Contains(searchTerm));
             }
 
-            // Filter by category
+            // Filter by category (including subcategories if selected is a parent)
             if (categoryId.HasValue && categoryId > 0)
             {
-                query = query.Where(p => p.CategoryId == categoryId);
+                var subCategoryIds = await _context.Categories
+                    .Where(c => c.ParentCategoryId == categoryId)
+                    .Select(c => c.Id)
+                    .ToListAsync();
+
+                if (subCategoryIds.Any())
+                {
+                    query = query.Where(p => p.CategoryId == categoryId || subCategoryIds.Contains(p.CategoryId));
+                }
+                else
+                {
+                    query = query.Where(p => p.CategoryId == categoryId);
+                }
             }
 
             // Filter by price range
@@ -51,8 +64,6 @@ namespace EStore.Controllers
                 query = query.Where(p => p.Price <= maxPrice);
             }
 
-            // (reviews removed) no minRating filter
-
             // Apply sorting
             query = sort switch
             {
@@ -63,6 +74,12 @@ namespace EStore.Controllers
                 _ => query.OrderBy(p => p.Name) // default: name
             };
 
+            // Custom pagination vs view all scroll mode
+            if (viewMode == "scroll")
+            {
+                pageSize = 1000; // Load all matching products
+            }
+
             // Pagination
             var totalCount = await query.CountAsync();
             var products = await query
@@ -70,10 +87,14 @@ namespace EStore.Controllers
                 .Take(pageSize)
                 .ToListAsync();
 
-            // (view count removed)
-
-            var categories = await _context.Categories.OrderBy(c => c.Name).ToListAsync();
-            var maxPriceInDb = await _context.Products.MaxAsync(p => (decimal?)p.Price) ?? 0;
+            var categories = await _context.Categories
+                .Include(c => c.SubCategories)
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+                
+            var maxPriceInDb = await _context.Products.AnyAsync() 
+                ? await _context.Products.MaxAsync(p => p.Price) 
+                : 0;
 
             var viewModel = new HomePageViewModel
             {
@@ -83,6 +104,7 @@ namespace EStore.Controllers
                 SearchTerm = search,
                 MinPrice = minPrice,
                 MaxPrice = maxPrice,
+                ViewMode = viewMode,
 
                 CurrentPage = page,
                 PageSize = pageSize,

@@ -31,7 +31,7 @@
 
     <!-- Premium Glassmorphism Navigation Bar -->
     <header>
-        <nav class="navbar navbar-expand-lg sticky-top">
+        <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-shopping-bag"></i>
@@ -212,6 +212,30 @@
                 <script src="~/lib/jquery/dist/jquery.min.js"></script>
                 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
                 <script src="~/js/site.js" asp-append-version="true"></script>
+
+                <script>
+                    (function () {
+                    var msg = null;
+                    var type = null;
+                    // Prefer explicit Notification keys, fall back to Success/Error keys used elsewhere
+                    msg = @(TempData["NotificationMessage"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["NotificationMessage"].ToString())) : "null");
+                    type = @(TempData["NotificationType"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["NotificationType"].ToString())) : "null");
+                    if (msg === null) {
+                    msg = @(TempData["SuccessMessage"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["SuccessMessage"].ToString())) : "null");
+                    if (msg !== null) type = 'success';
+                    }
+                    if (msg === null) {
+                    msg = @(TempData["ErrorMessage"] != null ? Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["ErrorMessage"].ToString())) : "null");
+                    if (msg !== null) type = 'error';
+                    }
+
+                    if (msg !== null) {
+                    document.addEventListener('DOMContentLoaded', function () {
+                    try { showNotification(msg, type || 'info'); } catch (e) { /* fail silently if script not loaded */ }
+                    });
+                    }
+                    })();
+                </script>
 
                 @await RenderSectionAsync("Scripts", required: false)
             </body>

@@ -4,6 +4,7 @@ using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 Env.Load();
 
@@ -63,12 +64,19 @@ builder.Services.AddLogging(logging =>
 
 var app = builder.Build();
 
-// Database initialization and seeding
-using (var scope = app.Services.CreateScope())
+// Database initialization and seeding (can be skipped via env var `SKIP_DATA_SEED=true`)
+var skipSeeding = configuration.GetValue<bool>("SKIP_DATA_SEED", false);
+if (!skipSeeding)
 {
-    var dataSeedingService = scope.ServiceProvider.GetRequiredService<DataSeedingService>();
-    await dataSeedingService.SeedAllDataAsync();
-
+    using (var scope = app.Services.CreateScope())
+    {
+        var dataSeedingService = scope.ServiceProvider.GetRequiredService<DataSeedingService>();
+        await dataSeedingService.SeedAllDataAsync();
+    }
+}
+else
+{
+    app.Logger.LogInformation("Data seeding skipped because SKIP_DATA_SEED is set to true.");
 }
 
 // Configure the HTTP request pipeline

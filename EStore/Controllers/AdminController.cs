@@ -67,8 +67,13 @@ namespace EStore.Controllers
 
         // Category Management Methods
         [HttpGet]
-        public IActionResult AddCategory()
+        public async Task<IActionResult> AddCategory()
         {
+            var parentCategories = await _context.Categories
+                .Where(c => c.ParentCategoryId == null)
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+            ViewBag.ParentCategories = parentCategories;
             return View();
         }
 
@@ -82,6 +87,12 @@ namespace EStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Dashboard", new { tab = "products" });
             }
+
+            var parentCategories = await _context.Categories
+                .Where(c => c.ParentCategoryId == null)
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+            ViewBag.ParentCategories = parentCategories;
             return View(model);
         }
 
@@ -93,6 +104,12 @@ namespace EStore.Controllers
             {
                 return NotFound();
             }
+
+            var parentCategories = await _context.Categories
+                .Where(c => c.ParentCategoryId == null && c.Id != id) // Can't be its own parent
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+            ViewBag.ParentCategories = parentCategories;
             return View(category);
         }
 
@@ -127,6 +144,12 @@ namespace EStore.Controllers
                     throw;
                 }
             }
+
+            var parentCategories = await _context.Categories
+                .Where(c => c.ParentCategoryId == null && c.Id != id)
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+            ViewBag.ParentCategories = parentCategories;
             return View(model);
         }
 
