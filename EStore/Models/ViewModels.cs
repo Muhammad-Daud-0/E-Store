@@ -16,6 +16,7 @@ namespace EStore.Models
         public List<Order> Orders { get; set; } = new List<Order>();
         public List<IdentityUser> Users { get; set; } = new List<IdentityUser>();
         public Dictionary<string, string> UserRoles { get; set; } = new Dictionary<string, string>();
+        public IdentityUser? CurrentUser { get; set; }
     }
 
     public class HomePageViewModel

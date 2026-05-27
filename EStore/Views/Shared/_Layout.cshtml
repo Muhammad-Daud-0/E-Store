@@ -4,18 +4,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="E-Store - Premium Online Shopping Experience for Electronics, Audio & Video, and Office Equipment" />
+    <meta name="description"
+          content="E-Store - Premium Online Shopping Experience for Electronics, Audio & Video, and Office Equipment" />
     <title>@ViewData["Title"] - E-Store</title>
-    
+
     <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
     <!-- Bootstrap & FontAwesome -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    
+
     <!-- Custom Design Styles -->
     <link rel="stylesheet" href="~/css/modern.css" asp-append-version="true" />
 </head>
@@ -23,96 +25,100 @@
 <body data-authenticated="@(User.Identity?.IsAuthenticated == true ? "true" : "false")"
       data-cart-count-url="@Url.Action("GetCartCount", "Cart")"
       data-add-to-cart-url="@Url.Action("AddToCartAjax", "Cart")">
-      
+
     <!-- Global Anti-Forgery Token for AJAX -->
     @Html.AntiForgeryToken()
 
     <!-- Premium Glassmorphism Navigation Bar -->
     <header>
         <nav class="navbar navbar-expand-lg sticky-top">
-             <div class="container">
-                 <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
-                     <i class="fas fa-shopping-bag"></i>
-                     <span>E-Store</span>
-                 </a>
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>E-Store</span>
+                </a>
 
-                 <!-- Theme Toggle & Mobile Toggle -->
-                 <div class="d-flex align-items-center gap-2 d-lg-none">
-                     <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" type="button">
-                         <i class="fas fa-moon" style="transition: all 0.3s ease;"></i>
-                     </button>
-                     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                         <span class="navbar-toggler-icon"></span>
-                     </button>
-                 </div>
+                <!-- Theme Toggle & Mobile Toggle -->
+                <div class="d-flex align-items-center gap-2 d-lg-none">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode"
+                            type="button">
+                        <i class="fas fa-moon" style="transition: all 0.3s ease;"></i>
+                    </button>
+                    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
 
-                 <div class="collapse navbar-collapse" id="navbarNav">
-                     <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
-                         <li class="nav-item">
-                             <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                 <i class="fas fa-store me-1"></i>Shop
-                             </a>
-                         </li>
-                         @if (User.Identity?.IsAuthenticated == true)
-                         {
-                             <li class="nav-item">
-                                 <a class="nav-link position-relative" asp-controller="Cart" asp-action="Index">
-                                     <i class="fas fa-shopping-cart me-1"></i>Cart
-                                     <span class="cart-badge cart-count-badge" style="display: none;">0</span>
-                                 </a>
-                             </li>
-                             @if (User.IsInRole("Admin"))
-                             {
-                                 <li class="nav-item">
-                                     <a class="nav-link" asp-controller="Admin" asp-action="Dashboard">
-                                         <i class="fas fa-cog me-1"></i>Admin
-                                     </a>
-                                 </li>
-                             }
-                             else
-                             {
-                                 <li class="nav-item">
-                                     <a class="nav-link" asp-controller="User" asp-action="Dashboard">
-                                         <i class="fas fa-box me-1"></i>My Orders
-                                     </a>
-                                 </li>
-                             }
-                             <li class="nav-item d-none d-lg-block">
-                                 <button class="theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark/light mode" type="button">
-                                     <i class="fas fa-moon" style="transition: all 0.3s ease;"></i>
-                                 </button>
-                             </li>
-                             <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-                                 <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
-                                     @Html.AntiForgeryToken()
-                                     <button type="submit" class="btn btn-nav-outline w-100">
-                                         <i class="fas fa-sign-out-alt me-1"></i>Logout
-                                     </button>
-                                 </form>
-                             </li>
-                         }
-                         else
-                         {
-                             <li class="nav-item d-none d-lg-block">
-                                 <button class="theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark/light mode" type="button">
-                                     <i class="fas fa-moon" style="transition: all 0.3s ease;"></i>
-                                 </button>
-                             </li>
-                             <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-                                 <a class="btn btn-nav w-100" asp-controller="Account" asp-action="Login">
-                                     <i class="fas fa-sign-in-alt me-1"></i>Login
-                                 </a>
-                             </li>
-                             <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-                                 <a class="btn btn-nav-outline w-100" asp-controller="Account" asp-action="Register">
-                                     <i class="fas fa-user-plus me-1"></i>Register
-                                 </a>
-                             </li>
-                         }
-                     </ul>
-                 </div>
-             </div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-store me-1"></i>Shop
+                            </a>
+                        </li>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link position-relative" asp-controller="Cart" asp-action="Index">
+                                    <i class="fas fa-shopping-cart me-1"></i>Cart
+                                    <span class="cart-badge cart-count-badge" style="display: none;">0</span>
+                                </a>
+                            </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Admin" asp-action="Dashboard">
+                                        <i class="fas fa-cog me-1"></i>Admin
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="User" asp-action="Dashboard">
+                                        <i class="fas fa-cog me-1"></i>Profile
+                                    </a>
+                                </li>
+                            }
+                            <li class="nav-item d-none d-lg-block">
+                                <button class="theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark/light mode"
+                                        type="button">
+                                    <i class="fas fa-moon" style="transition: all 0.3s ease;"></i>
+                                </button>
+                            </li>
+                            <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                                <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-nav-outline w-100">
+                                        <i class="fas fa-sign-out-alt me-1"></i>Logout
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item d-none d-lg-block">
+                                <button class="theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark/light mode"
+                                        type="button">
+                                    <i class="fas fa-moon" style="transition: all 0.3s ease;"></i>
+                                </button>
+                            </li>
+                            <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                                <a class="btn btn-nav w-100" asp-controller="Account" asp-action="Login">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Login
+                                </a>
+                            </li>
+                            <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                                <a class="btn btn-nav-outline w-100" asp-controller="Account" asp-action="Register">
+                                    <i class="fas fa-user-plus me-1"></i>Register
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -133,7 +139,8 @@
                         <span>E-Store</span>
                     </h5>
                     <p class="small" style="max-width: 350px; color: rgba(255,255,255,0.5);">
-                        Providing the highest-quality high-tech gadgets, professional office hardware, and premium audio-visual equipment.
+                        Providing the highest-quality high-tech gadgets, professional office hardware, and premium
+                        audio-visual equipment.
                     </p>
                     <div class="d-flex gap-2 mt-4">
                         <a href="#" class="footer-social-link"><i class="fab fa-facebook-f"></i></a>
@@ -143,62 +150,70 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <h6 class="fw-bold mb-3 text-uppercase" style="letter-spacing: 0.1em; font-size: 0.8rem;">Quick Links</h6>
-                    <ul class="list-unstyled small d-flex flex-column gap-2">
-                        <li>
-                            <a asp-controller="Home" asp-action="Index" class="text-decoration-none hover-link" style="color: rgba(255,255,255,0.5);">
-                                <i class="fas fa-chevron-right me-1" style="font-size: 0.65rem;"></i>Shop Products
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Cart" asp-action="Index" class="text-decoration-none hover-link" style="color: rgba(255,255,255,0.5);">
-                                <i class="fas fa-chevron-right me-1" style="font-size: 0.65rem;"></i>Shopping Cart
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none hover-link" style="color: rgba(255,255,255,0.5);">
-                                <i class="fas fa-chevron-right me-1" style="font-size: 0.65rem;"></i>Privacy Policy
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="fw-bold mb-3 text-uppercase" style="letter-spacing: 0.1em; font-size: 0.8rem;">Contact & Support</h6>
-                    <div class="d-flex flex-column gap-2 small" style="color: rgba(255,255,255,0.5);">
-                        <p class="mb-0 d-flex align-items-center">
-                            <i class="fas fa-envelope me-2" style="color: var(--accent-3);"></i>
-                            <span>support@estore.com</span>
-                        </p>
-                        <p class="mb-0 d-flex align-items-center">
-                            <i class="fas fa-phone me-2" style="color: var(--accent-3);"></i>
-                            <span>1-800-ESTORE</span>
-                        </p>
-                        <p class="mb-0 d-flex align-items-center">
-                            <i class="fas fa-map-marker-alt me-2" style="color: var(--accent-3);"></i>
-                            <span>123 Commerce Way, Tech City, USA</span>
-                        </p>
+                    <h6 class="fw-bold mb-3 text-uppercase" style="letter-spacing: 0.1em; font-size: 0.8rem;">Quick
+                        Links</h6>
+                        <ul class="list-unstyled small d-flex flex-column gap-2">
+                            <li>
+                                <a asp-controller="Home" asp-action="Index" class="text-decoration-none hover-link"
+                                   style="color: rgba(255,255,255,0.5);">
+                                    <i class="fas fa-chevron-right me-1" style="font-size: 0.65rem;"></i>Shop Products
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Cart" asp-action="Index" class="text-decoration-none hover-link"
+                                   style="color: rgba(255,255,255,0.5);">
+                                    <i class="fas fa-chevron-right me-1" style="font-size: 0.65rem;"></i>Shopping Cart
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none hover-link"
+                                   style="color: rgba(255,255,255,0.5);">
+                                    <i class="fas fa-chevron-right me-1" style="font-size: 0.65rem;"></i>Privacy Policy
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                </div>
-            </div>
-            <hr style="border-color: rgba(255,255,255,0.1); margin: 2rem 0;">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="small mb-0" style="color: rgba(255,255,255,0.4);">&copy; @DateTime.Now.Year E-Store. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
-                    <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none small hover-link me-3" style="color: rgba(255,255,255,0.4);">Terms of Service</a>
-                    <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none small hover-link" style="color: rgba(255,255,255,0.4);">Privacy Statement</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold mb-3 text-uppercase" style="letter-spacing: 0.1em; font-size: 0.8rem;">
+                            Contact & Support</h6>
+                            <div class="d-flex flex-column gap-2 small" style="color: rgba(255,255,255,0.5);">
+                                <p class="mb-0 d-flex align-items-center">
+                                    <i class="fas fa-envelope me-2" style="color: var(--accent-3);"></i>
+                                    <span>support@estore.com</span>
+                                </p>
+                                <p class="mb-0 d-flex align-items-center">
+                                    <i class="fas fa-phone me-2" style="color: var(--accent-3);"></i>
+                                    <span>1-800-ESTORE</span>
+                                </p>
+                                <p class="mb-0 d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt me-2" style="color: var(--accent-3);"></i>
+                                    <span>123 Commerce Way, Tech City, USA</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="border-color: rgba(255,255,255,0.1); margin: 2rem 0;">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 text-center text-md-start">
+                            <p class="small mb-0" style="color: rgba(255,255,255,0.4);">&copy; @DateTime.Now.Year E-Store.
+                                All rights reserved.</p>
+                            </div>
+                            <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                                <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none small hover-link me-3"
+                                   style="color: rgba(255,255,255,0.4);">Terms of Service</a>
+                                <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none small hover-link"
+                                   style="color: rgba(255,255,255,0.4);">Privacy Statement</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
 
-    <!-- Scripts -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+                <!-- Scripts -->
+                <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+                @await RenderSectionAsync("Scripts", required: false)
+            </body>
 
-</html>
+        </html>

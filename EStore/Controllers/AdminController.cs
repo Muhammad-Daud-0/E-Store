@@ -48,13 +48,17 @@ namespace EStore.Controllers
                 userRoles[u.Id] = roles.FirstOrDefault() ?? "User";
             }
 
+            var currentUserId = _userManager.GetUserId(User);
+            var currentUser = users.FirstOrDefault(u => u.Id == currentUserId);
+
             var viewModel = new AdminDashboardViewModel
             {
                 Categories = categories,
                 Products = products,
                 Orders = orders,
                 Users = users,
-                UserRoles = userRoles
+                UserRoles = userRoles,
+                CurrentUser = currentUser
             };
 
             ViewData["ActiveTab"] = tab ?? "products";

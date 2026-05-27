@@ -102,6 +102,11 @@
             <i class="fas fa-users me-2"></i>User Management
         </button>
     </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-content" type="button" role="tab">
+            <i class="fas fa-user-cog me-2"></i>Profile Settings
+        </button>
+    </li>
 </ul>
 
 <!-- Tab Panel Contents -->
@@ -521,6 +526,97 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Profile Settings Tab -->
+    <div class="tab-pane fade" id="profile-content" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row g-4">
+            
+            <!-- Update Profile Info Card -->
+            <div class="col-lg-6">
+                <div class="card h-100" style="border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                    <div class="card-header" style="background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 1rem 1.25rem;">
+                        <h6 class="fw-bold mb-0 d-flex align-items-center" style="color: var(--text-primary);">
+                            <i class="fas fa-user-edit me-2" style="color: var(--accent-1);"></i>Personal Details
+                        </h6>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="post" asp-controller="User" asp-action="UpdateProfile">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="returnUrl" value="/Admin/Dashboard?tab=profile" />
+                            
+                            <div class="mb-3">
+                                <label class="form-label" for="adminEmail">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" id="adminEmail" name="email" class="form-control" value="@Model.CurrentUser?.Email" required />
+                                </div>
+                                <span class="form-text">Changing your email address will also change your login credentials.</span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="adminPhone">Phone Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <input type="tel" id="adminPhone" name="phoneNumber" class="form-control" value="@Model.CurrentUser?.PhoneNumber" placeholder="e.g. +1 555-0199" />
+                                </div>
+                                <span class="form-text">Used for shipping updates and order tracking delivery contacts.</span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary px-4 py-2 w-100 rounded-3">
+                                <i class="fas fa-save me-2"></i>Save Admin Details
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Update Password Card -->
+            <div class="col-lg-6">
+                <div class="card h-100" style="border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                    <div class="card-header" style="background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 1rem 1.25rem;">
+                        <h6 class="fw-bold mb-0 d-flex align-items-center" style="color: var(--text-primary);">
+                            <i class="fas fa-shield-alt me-2" style="color: var(--accent-1);"></i>Security & Password
+                        </h6>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="post" asp-controller="User" asp-action="ChangePassword">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="returnUrl" value="/Admin/Dashboard?tab=profile" />
+                            
+                            <div class="mb-3">
+                                <label class="form-label" for="adminCurrentPassword">Current Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" id="adminCurrentPassword" name="oldPassword" class="form-control" placeholder="••••••••" required />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="adminNewPassword">New Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    <input type="password" id="adminNewPassword" name="newPassword" class="form-control" placeholder="Min. 8 characters" required />
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="adminConfirmPassword">Confirm New Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    <input type="password" id="adminConfirmPassword" name="confirmPassword" class="form-control" placeholder="Repeat new password" required />
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-outline-primary px-4 py-2 w-100 rounded-3">
+                                <i class="fas fa-lock-open me-2"></i>Update Password
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
