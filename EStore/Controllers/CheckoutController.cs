@@ -10,11 +10,11 @@ namespace EStore.Controllers
     [Authorize]
     public class CheckoutController : Controller
     {
-        private readonly IInMemoryCartService _cartService;
+        private readonly ICartService _cartService;
         private readonly AppDbContext _context;
         private readonly ILogger<CheckoutController> _logger;
 
-        public CheckoutController(IInMemoryCartService cartService, AppDbContext context, ILogger<CheckoutController> logger)
+        public CheckoutController(ICartService cartService, AppDbContext context, ILogger<CheckoutController> logger)
         {
             _cartService = cartService;
             _context = context;

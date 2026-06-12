@@ -13,6 +13,8 @@ namespace EStore.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -69,6 +71,31 @@ namespace EStore.Models
                 entity.HasOne(oi => oi.Product)
                     .WithMany()
                     .HasForeignKey(oi => oi.ProductId)
+                    .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            builder.Entity<ShoppingCart>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).IsRequired().HasMaxLength(450);
+                entity.Property(e => e.CreatedAt).IsRequired();
+                entity.Property(e => e.UpdatedAt).IsRequired();
+                entity.HasIndex(e => e.UserId);
+                entity.HasMany(e => e.Items)
+                    .WithOne(ci => ci.ShoppingCart)
+                    .HasForeignKey(ci => ci.CartId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<CartItem>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ProductName).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Price).HasPrecision(18, 2);
+                entity.Property(e => e.ImageUrl).HasMaxLength(500);
+                entity.HasOne(e => e.Product)
+                    .WithMany()
+                    .HasForeignKey(e => e.ProductId)
                     .OnDelete(DeleteBehavior.SetNull);
             });
         }

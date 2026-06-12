@@ -1,10 +1,9 @@
+using DotNetEnv;
 using EStore.Models;
 using EStore.Services;
-using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 Env.Load();
 
@@ -12,14 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-// Add services to the container
 builder.Services.AddControllersWithViews();
 
-// Add DbContext with SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-// Add Identity (use ApplicationUser for profile fields)
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -31,11 +27,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-// Add Authentication with Google OAuth
+//Authentication with Google OAuth
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    // DefaultChallengeScheme is omitted so that unauthorized requests are redirected to local login page instead of Google OAuth
 })
 .AddCookie(options =>
 {
@@ -49,13 +44,11 @@ builder.Services.AddAuthentication(options =>
     options.ClientSecret = configuration["Authentication:Google:ClientSecret"] ?? "";
 });
 
-// Add custom services (using Singleton since it maintains an in-memory concurrent store)
-builder.Services.AddSingleton<IInMemoryCartService, InMemoryCartService>();
+// Add custom services
+builder.Services.AddScoped<ICartService, DatabaseCartService>();
 
-// Add Data Seeding Service
 builder.Services.AddScoped<DataSeedingService>();
 
-// Add logging
 builder.Services.AddLogging(logging =>
 {
     logging.ClearProviders();

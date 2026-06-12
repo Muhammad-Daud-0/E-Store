@@ -8,11 +8,11 @@ namespace EStore.Controllers
     [Authorize]
     public class CartController : Controller
     {
-        private readonly IInMemoryCartService _cartService;
+        private readonly ICartService _cartService;
         private readonly AppDbContext _context;
         private readonly ILogger<CartController> _logger;
 
-        public CartController(IInMemoryCartService cartService, AppDbContext context, ILogger<CartController> logger)
+        public CartController(ICartService cartService, AppDbContext context, ILogger<CartController> logger)
         {
             _cartService = cartService;
             _context = context;
