@@ -27,7 +27,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-//Authentication with Google OAuth
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -44,7 +43,6 @@ builder.Services.AddAuthentication(options =>
     options.ClientSecret = configuration["Authentication:Google:ClientSecret"] ?? "";
 });
 
-// Add custom services
 builder.Services.AddScoped<ICartService, DatabaseCartService>();
 
 builder.Services.AddScoped<DataSeedingService>();
@@ -57,7 +55,7 @@ builder.Services.AddLogging(logging =>
 
 var app = builder.Build();
 
-// Database initialization and seeding (can be skipped via env var `SKIP_DATA_SEED=true`)
+// Database initialization and seeding (skipped via env var `SKIP_DATA_SEED=true`)
 var skipSeeding = configuration.GetValue<bool>("SKIP_DATA_SEED", false);
 if (!skipSeeding)
 {
@@ -72,7 +70,6 @@ else
     app.Logger.LogInformation("Data seeding skipped because SKIP_DATA_SEED is set to true.");
 }
 
-// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
