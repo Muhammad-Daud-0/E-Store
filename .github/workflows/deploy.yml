@@ -23,14 +23,21 @@ jobs:
 
     - name: Delete locked DLL
       run: |
-          curl -v "ftp://site75763:${{ secrets.MONSTERASP_FTP_PASSWORD }}@site75763.siteasp.net/wwwroot/EStore.dll" -Q "DELE wwwroot/EStore.dll"
+        curl -v "ftp://${{ secrets.FTP_USERNAME }}:${{ secrets.MONSTERASP_FTP_PASSWORD }}@site75763.siteasp.net/wwwroot/EStore.dll" -Q "DELE wwwroot/EStore.dll"
       continue-on-error: true
 
     - name: Deploy via FTP to MonsterASP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: site75763.siteasp.net  
+        server: site75763.siteasp.net
         username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
+        password: ${{ secrets.MONSTERASP_FTP_PASSWORD }}
         local-dir: ./publish/
         server-dir: /wwwroot/
+        protocol: ftps
+        port: 21
+        security: loose
+        log-level: verbose
+        exclude: |
+          runtimes/**
+          EStore
