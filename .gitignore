@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 
+*.vscode
+
 # Environment files (local secrets)
 .env
-EStore/.env
+
+*/.vscode

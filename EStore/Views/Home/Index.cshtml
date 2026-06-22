@@ -80,542 +80,536 @@
     <!-- Authentication Warning Banner for Guests -->
     @if (User.Identity?.IsAuthenticated == false)
     {
-        <div class="alert alert-info d-flex flex-column flex-md-row justify-content-between align-items-md-center p-4 mb-4 animate-fade-in-up delay-1"
-             role="alert" style="border-radius: var(--radius-lg);">
+        <div class="alert alert-info p-4 mb-4  animate-fade-in-up delay-1" role="alert"
+             style="border-radius: var(--radius-lg);">
             <div class="mb-3 mb-md-0">
-                <h5 class="alert-heading fw-bold mb-1"><i class="fas fa-info-circle me-2"></i>Experience the Best Shopping</h5>
-                <p class="mb-0 small" style="color: var(--text-secondary);">Sign in to your account to add items to your cart,
-                    customize your orders, and proceed with a secure checkout.</p>
+                <h5 class="alert-heading fw-bold mb-1 text-center"><i class="fas fa-info-circle me-2"></i>Experience the Best
+                    Shopping</h5>
+                    <p class="mb-0 small text-center" style="color: var(--text-secondary);">Sign in to your account to add items to
+                        your cart,
+                        customize your orders, and proceed with a secure checkout.</p>
+                    </div>
                 </div>
-                <div class="d-flex gap-2">
-                    <a class="btn btn-primary btn-sm px-4 py-2" asp-controller="Account" asp-action="Login">
-                        <i class="fas fa-sign-in-alt me-1"></i>Login
-                    </a>
-                    <a class="btn btn-outline-secondary btn-sm px-4 py-2" asp-controller="Account" asp-action="Register">
-                        <i class="fas fa-user-plus me-1"></i>Register
-                    </a>
+            }
+
+            <!-- Interactive Search & Navigation Controls -->
+            <div class="row g-3 align-items-center mb-4 animate-fade-in-up delay-2">
+                <div class="">
+                    <div class="position-relative">
+                        <input type="text" id="searchInput" class="form-control ps-4 pe-5 py-3"
+                               placeholder="Search our catalog by name or description..." autocomplete="off" value="@Model.SearchTerm"
+                               style="border-radius: var(--radius-full); background: var(--bg-glass); backdrop-filter: blur(12px); border: 1.5px solid var(--border-color); box-shadow: var(--shadow-sm);">
+                        <i class="fas fa-search position-absolute"
+                           style="right: 1.5rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted);"></i>
+                    </div>
                 </div>
             </div>
-        }
 
-        <!-- Interactive Search & Navigation Controls -->
-        <div class="row g-3 align-items-center mb-4 animate-fade-in-up delay-2">
-            <div class="">
-                <div class="position-relative">
-                    <input type="text" id="searchInput" class="form-control ps-4 pe-5 py-3"
-                           placeholder="Search our catalog by name or description..." autocomplete="off" value="@Model.SearchTerm"
-                           style="border-radius: var(--radius-full); background: var(--bg-glass); backdrop-filter: blur(12px); border: 1.5px solid var(--border-color); box-shadow: var(--shadow-sm);">
-                    <i class="fas fa-search position-absolute"
-                       style="right: 1.5rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted);"></i>
-                </div>
-            </div>
-        </div>
+            <div class="row g-4 animate-fade-in-up delay-3">
+                <!-- Left Sidebar Column -->
+                <div class="col-lg-3 col-md-4">
+                    <div class="sidebar-wrapper p-4 rounded-4"
+                         style="background: var(--bg-card); border: 1.5px solid var(--border-color); box-shadow: var(--shadow-md); position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto;">
 
-        <div class="row g-4 animate-fade-in-up delay-3">
-            <!-- Left Sidebar Column -->
-            <div class="col-lg-3 col-md-4">
-                <div class="sidebar-wrapper p-4 rounded-4"
-                     style="background: var(--bg-card); border: 1.5px solid var(--border-color); box-shadow: var(--shadow-md); position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto;">
+                        <!-- Sorting Option -->
+                        <div class="sidebar-section mb-4 pb-4" style="border-bottom: 1.5px solid var(--border-color);">
+                            <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: var(--text-primary);">
+                                <i class="fas fa-sort-amount-down me-2" style="color: var(--accent-1);"></i>Sort Catalog
+                            </h5>
+                            <select id="sortSelectSidebar" class="form-select py-2.5 px-3"
+                                    style="border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: var(--bg-glass);"
+                                    onchange="window.location.href='@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, viewMode = Model.ViewMode })&sort=' + this.value">
+                                @if (ViewData["CurrentSort"]?.ToString() == "name" ||
+                                string.IsNullOrEmpty(ViewData["CurrentSort"]?.ToString()))
+                                {
+                                    <option value="name" selected>Name (A-Z)</option>
+                                }
+                                else
+                                {
+                                    <option value="name">Name (A-Z)</option>
+                                }
 
-                    <!-- Sorting Option -->
-                    <div class="sidebar-section mb-4 pb-4" style="border-bottom: 1.5px solid var(--border-color);">
-                        <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: var(--text-primary);">
-                            <i class="fas fa-sort-amount-down me-2" style="color: var(--accent-1);"></i>Sort Catalog
-                        </h5>
-                        <select id="sortSelectSidebar" class="form-select py-2.5 px-3"
-                                style="border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: var(--bg-glass);"
-                                onchange="window.location.href='@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, viewMode = Model.ViewMode })&sort=' + this.value">
-                            @if (ViewData["CurrentSort"]?.ToString() == "name" ||
-                            string.IsNullOrEmpty(ViewData["CurrentSort"]?.ToString()))
-                            {
-                                <option value="name" selected>Name (A-Z)</option>
-                            }
-                            else
-                            {
-                                <option value="name">Name (A-Z)</option>
-                            }
+                                @if (ViewData["CurrentSort"]?.ToString() == "price-low")
+                                {
+                                    <option value="price-low" selected>Price (Low to High)</option>
+                                }
+                                else
+                                {
+                                    <option value="price-low">Price (Low to High)</option>
+                                }
 
-                            @if (ViewData["CurrentSort"]?.ToString() == "price-low")
-                            {
-                                <option value="price-low" selected>Price (Low to High)</option>
-                            }
-                            else
-                            {
-                                <option value="price-low">Price (Low to High)</option>
-                            }
+                                @if (ViewData["CurrentSort"]?.ToString() == "price-high")
+                                {
+                                    <option value="price-high" selected>Price (High to Low)</option>
+                                }
+                                else
+                                {
+                                    <option value="price-high">Price (High to Low)</option>
+                                }
 
-                            @if (ViewData["CurrentSort"]?.ToString() == "price-high")
-                            {
-                                <option value="price-high" selected>Price (High to Low)</option>
-                            }
-                            else
-                            {
-                                <option value="price-high">Price (High to Low)</option>
-                            }
-
-                            @if (ViewData["CurrentSort"]?.ToString() == "newest")
-                            {
-                                <option value="newest" selected>Newest First</option>
-                            }
-                            else
-                            {
-                                <option value="newest">Newest First</option>
-                            }
-                        </select>
-                    </div>
-
-                    <!-- Catalog View Options (Pages vs Scroll) -->
-                    <div class="sidebar-section mb-4 pb-4" style="border-bottom: 1.5px solid var(--border-color);">
-                        <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: var(--text-primary);">
-                            <i class="fas fa-eye me-2" style="color: var(--accent-1);"></i>Catalog View
-                        </h5>
-                        <div class="d-flex gap-2">
-                            <a href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = "pages" })"
-                               class="btn btn-sm flex-grow-1 py-2 fw-semibold d-flex align-items-center justify-content-center gap-1.5 @(Model.ViewMode == "pages" ? "btn-primary" : "btn-light border")"
-                               style="border-radius: var(--radius-md); font-size: 0.85rem;">
-                                <i class="fas fa-list-ol"></i>Pages
-                            </a>
-                            <a href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = "scroll" })"
-                               class="btn btn-sm flex-grow-1 py-2 fw-semibold d-flex align-items-center justify-content-center gap-1.5 @(Model.ViewMode == "scroll" ? "btn-primary" : "btn-light border")"
-                               style="border-radius: var(--radius-md); font-size: 0.85rem;">
-                                <i class="fas fa-stream"></i>Scroll All
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Categories Tree Selection -->
-                    <div class="sidebar-section">
-                        <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: var(--text-primary);">
-                            <i class="fas fa-folder-open me-2" style="color: var(--accent-1);"></i>Categories
-                        </h5>
-
-                        <div class="d-grid gap-2 mb-3">
-                            <a href="@Url.Action("Index", "Home", new { viewMode = Model.ViewMode, sort = ViewData["CurrentSort"], search = Model.SearchTerm })"
-                               class="category-tree-node d-flex align-items-center justify-content-between p-2.5 rounded-3 fw-bold @(!Model.SelectedCategoryId.HasValue ? "active" : "")"
-                               style="transition: all 0.2s; text-decoration: none; color: var(--text-primary); font-size: 0.9rem;">
-                                <span><i class="fas fa-th me-2" style="color: var(--accent-1);"></i>All Products</span>
-                            </a>
+                                @if (ViewData["CurrentSort"]?.ToString() == "newest")
+                                {
+                                    <option value="newest" selected>Newest First</option>
+                                }
+                                else
+                                {
+                                    <option value="newest">Newest First</option>
+                                }
+                            </select>
                         </div>
 
-                        <div class="category-hierarchy">
-                            @{
-                                var rootCategories = Model.Categories.Where(c => c.ParentCategoryId == null).OrderBy(c =>
-                            c.Name).ToList();
-                            }
-                            @foreach (var parent in rootCategories)
-                            {
-                                var isParentActive = Model.SelectedCategoryId == parent.Id;
-                                var isChildActive = parent.SubCategories.Any(sc => sc.Id == Model.SelectedCategoryId);
-                                var hasSubCategories = parent.SubCategories.Any();
+                        <!-- Catalog View Options (Pages vs Scroll) -->
+                        <div class="sidebar-section mb-4 pb-4" style="border-bottom: 1.5px solid var(--border-color);">
+                            <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: var(--text-primary);">
+                                <i class="fas fa-eye me-2" style="color: var(--accent-1);"></i>Catalog View
+                            </h5>
+                            <div class="d-flex gap-2">
+                                <a href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = "pages" })"
+                                   class="btn btn-sm flex-grow-1 py-2 fw-semibold d-flex align-items-center justify-content-center gap-1.5 @(Model.ViewMode == "pages" ? "btn-primary" : "btn-light border")"
+                                   style="border-radius: var(--radius-md); font-size: 0.85rem;">
+                                    <i class="fas fa-list-ol"></i>Pages
+                                </a>
+                                <a href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = "scroll" })"
+                                   class="btn btn-sm flex-grow-1 py-2 fw-semibold d-flex align-items-center justify-content-center gap-1.5 @(Model.ViewMode == "scroll" ? "btn-primary" : "btn-light border")"
+                                   style="border-radius: var(--radius-md); font-size: 0.85rem;">
+                                    <i class="fas fa-stream"></i>Scroll All
+                                </a>
+                            </div>
+                        </div>
 
-                                <div class="parent-node mb-2">
-                                    <a href="@Url.Action("Index", "Home", new { categoryId = parent.Id, viewMode = Model.ViewMode, sort = ViewData["CurrentSort"], search = Model.SearchTerm })"
-                                       class="d-flex align-items-center justify-content-between p-2 rounded-3 @(isParentActive ? "active-parent fw-bold" : "text-primary")"
-                                       style="text-decoration: none; font-size: 0.9rem; color: var(--text-primary); transition: all 0.2s;">
-                                        <span class="text-truncate">
-                                            @if (!string.IsNullOrEmpty(parent.IconUrl))
+                        <!-- Categories Tree Selection -->
+                        <div class="sidebar-section">
+                            <h5 class="fw-bold mb-3 d-flex align-items-center" style="color: var(--text-primary);">
+                                <i class="fas fa-folder-open me-2" style="color: var(--accent-1);"></i>Categories
+                            </h5>
+
+                            <div class="d-grid gap-2 mb-3">
+                                <a href="@Url.Action("Index", "Home", new { viewMode = Model.ViewMode, sort = ViewData["CurrentSort"], search = Model.SearchTerm })"
+                                   class="category-tree-node d-flex align-items-center justify-content-between p-2.5 rounded-3 fw-bold @(!Model.SelectedCategoryId.HasValue ? "active" : "")"
+                                   style="transition: all 0.2s; text-decoration: none; color: var(--text-primary); font-size: 0.9rem;">
+                                    <span><i class="fas fa-th me-2" style="color: var(--accent-1);"></i>All Products</span>
+                                </a>
+                            </div>
+
+                            <div class="category-hierarchy">
+                                @{
+                                    var rootCategories = Model.Categories.Where(c => c.ParentCategoryId == null).OrderBy(c =>
+                                c.Name).ToList();
+                                }
+                                @foreach (var parent in rootCategories)
+                                {
+                                    var isParentActive = Model.SelectedCategoryId == parent.Id;
+                                    var isChildActive = parent.SubCategories.Any(sc => sc.Id == Model.SelectedCategoryId);
+                                    var hasSubCategories = parent.SubCategories.Any();
+
+                                    <div class="parent-node mb-2">
+                                        <a href="@Url.Action("Index", "Home", new { categoryId = parent.Id, viewMode = Model.ViewMode, sort = ViewData["CurrentSort"], search = Model.SearchTerm })"
+                                           class="d-flex align-items-center justify-content-between p-2 rounded-3 @(isParentActive ? "active-parent fw-bold" : "text-primary")"
+                                           style="text-decoration: none; font-size: 0.9rem; color: var(--text-primary); transition: all 0.2s;">
+                                            <span class="text-truncate">
+                                                @if (!string.IsNullOrEmpty(parent.IconUrl))
+                                                {
+                                                    <img src="@parent.IconUrl" class="me-2 rounded-circle object-fit-cover"
+                                                         style="width: 20px; height: 20px;" onerror="this.style.display='none';" />
+                                                }
+                                                else
+                                                {
+                                                    <i class="fas fa-folder me-2 text-warning"></i>
+                                                }
+                                                @parent.Name
+                                            </span>
+                                            @if (hasSubCategories)
                                             {
-                                                <img src="@parent.IconUrl" class="me-2 rounded-circle object-fit-cover"
-                                                     style="width: 20px; height: 20px;" onerror="this.style.display='none';" />
+                                                <i class="fas fa-chevron-down small-chevron text-muted @(isParentActive || isChildActive ? "rotated" : "")"
+                                                   style="font-size: 0.75rem; transition: transform 0.2s;"></i>
                                             }
-                                            else
-                                            {
-                                                <i class="fas fa-folder me-2 text-warning"></i>
-                                            }
-                                            @parent.Name
-                                        </span>
+                                        </a>
+
                                         @if (hasSubCategories)
                                         {
-                                            <i class="fas fa-chevron-down small-chevron text-muted @(isParentActive || isChildActive ? "rotated" : "")"
-                                               style="font-size: 0.75rem; transition: transform 0.2s;"></i>
+                                            <div class="sub-category-list ps-3 mt-1 @(isParentActive || isChildActive ? "" : "d-none")">
+                                                @foreach (var child in parent.SubCategories.OrderBy(sc => sc.Name))
+                                                {
+                                                    var isCurrentChildActive = Model.SelectedCategoryId == child.Id;
+                                                    <a href="@Url.Action("Index", "Home", new { categoryId = child.Id, viewMode = Model.ViewMode, sort = ViewData["CurrentSort"], search = Model.SearchTerm })"
+                                                       class="d-flex align-items-center justify-content-between p-2 rounded-3 mt-1 @(isCurrentChildActive ? "active-child fw-semibold" : "text-secondary")"
+                                                       style="text-decoration: none; font-size: 0.82rem; transition: all 0.2s;">
+                                                        <span class="text-truncate">
+                                                            <i class="fas fa-angle-right me-1 text-muted"></i> @child.Name
+                                                        </span>
+                                                    </a>
+                                                }
+                                            </div>
                                         }
-                                    </a>
-
-                                    @if (hasSubCategories)
-                                    {
-                                        <div class="sub-category-list ps-3 mt-1 @(isParentActive || isChildActive ? "" : "d-none")">
-                                            @foreach (var child in parent.SubCategories.OrderBy(sc => sc.Name))
-                                            {
-                                                var isCurrentChildActive = Model.SelectedCategoryId == child.Id;
-                                                <a href="@Url.Action("Index", "Home", new { categoryId = child.Id, viewMode = Model.ViewMode, sort = ViewData["CurrentSort"], search = Model.SearchTerm })"
-                                                   class="d-flex align-items-center justify-content-between p-2 rounded-3 mt-1 @(isCurrentChildActive ? "active-child fw-semibold" : "text-secondary")"
-                                                   style="text-decoration: none; font-size: 0.82rem; transition: all 0.2s;">
-                                                    <span class="text-truncate">
-                                                        <i class="fas fa-angle-right me-1 text-muted"></i> @child.Name
-                                                    </span>
-                                                </a>
-                                            }
-                                        </div>
-                                    }
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Products Catalog Column -->
-            <div class="col-lg-9 col-md-8">
-
-                <!-- Header displaying current selection -->
-                <div class="mb-4">
-                    @if (Model.SelectedCategoryId.HasValue)
-                    {
-                        var selectedCat = Model.Categories.FirstOrDefault(c => c.Id == Model.SelectedCategoryId);
-                        if (selectedCat != null)
-                        {
-                            <h3 class="fw-bold mb-0 text-gradient" style="color: var(--text-primary);">@selectedCat.Name</h3>
-                            <p class="small mb-0 text-muted">@selectedCat.Description</p>
-                        }
-                    }
-                    else
-                    {
-                        <h3 class="fw-bold mb-0 text-gradient" style="color: var(--text-primary);">Our Collection</h3>
-                        <p class="small mb-0 text-muted">Discover premium high-tech gadgets and office equipment at unbeatable
-                            prices.</p>
-                        }
-                    </div>
-
-                    <!-- Product Grid Catalog -->
-                    @if (Model.Products.Any())
-                    {
-                        @if (!Model.SelectedCategoryId.HasValue)
-                        {
-                            <!-- Standard Flat Catalog Layout -->
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="productsContainer">
-                                @foreach (var product in Model.Products)
-                                {
-                                    <div class="col product-card-wrapper">
-                                        <div class="card h-100 product-card border-0 position-relative" data-product-name="@product.Name"
-                                             data-product-description="@product.Description">
-
-                                            <!-- Product Image -->
-                                            <div class="product-image-wrapper ratio ratio-4x3 overflow-hidden"
-                                                 style="background: var(--bg-tertiary);">
-                                                @if (!string.IsNullOrEmpty(product.ImageUrl))
-                                                {
-                                                    <img src="@product.ImageUrl" class="object-fit-cover" alt="@product.Name"
-                                                         onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted fs-2\' style=\'background: var(--bg-tertiary);\'><i class=\'fas fa-box\'></i></div>';" />
-                                                }
-                                                else
-                                                {
-                                                    <div class="d-flex align-items-center justify-content-center fs-2"
-                                                         style="background: var(--bg-tertiary); color: var(--text-muted);">
-                                                        <i class="fas fa-box"></i>
-                                                    </div>
-                                                }
-                                            </div>
-
-                                            <!-- Stock Status Indicator Badge -->
-                                            <div class="position-absolute" style="top: 12px; right: 12px; z-index: 10;">
-                                                @if (product.StockQuantity > 0)
-                                                {
-                                                    <span class="product-stock stock-in">
-                                                        <i class="fas fa-check-circle"></i> In Stock
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="product-stock stock-out">
-                                                        <i class="fas fa-times-circle"></i> Out of Stock
-                                                    </span>
-                                                }
-                                            </div>
-
-                                            <!-- Product Description Body -->
-                                            <div class="card-body d-flex flex-column">
-                                                <h6 class="product-name text-truncate" title="@product.Name">@product.Name</h6>
-                                                <p class="product-description flex-grow-1"
-                                                   style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                                    @product.Description
-                                                </p>
-
-                                                <div class="mt-auto">
-                                                    <div class="product-price mb-3">
-                                                        $@product.Price.ToString("F2")
-                                                    </div>
-                                                    <div class="product-actions">
-                                                        <a class="btn btn-outline-primary btn-sm flex-grow-1 py-2 fw-semibold"
-                                                           asp-action="ProductDetails" asp-route-id="@product.Id">
-                                                            <i class="fas fa-eye me-1"></i>View
-                                                        </a>
-                                                        @if (product.StockQuantity > 0 && User.Identity?.IsAuthenticated == true)
-                                                        {
-                                                            <button type="button" class="btn btn-success btn-sm px-3 py-2 fw-semibold"
-                                                                    onclick="addToCartAjax(@product.Id)" title="Add to Cart">
-                                                                <i class="fas fa-cart-plus"></i>
-                                                            </button>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 }
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Catalog Column -->
+                <div class="col-lg-9 col-md-8">
+
+                    <!-- Header displaying current selection -->
+                    <div class="mb-4">
+                        @if (Model.SelectedCategoryId.HasValue)
+                        {
+                            var selectedCat = Model.Categories.FirstOrDefault(c => c.Id == Model.SelectedCategoryId);
+                            if (selectedCat != null)
+                            {
+                                <h3 class="fw-bold mb-0 text-gradient" style="color: var(--text-primary);">@selectedCat.Name</h3>
+                                <p class="small mb-0 text-muted">@selectedCat.Description</p>
+                            }
                         }
                         else
                         {
-                            <!-- Category-Specific Structured Catalog -->
-                            var productsByCategory = Model.Products.GroupBy(p => p.Category?.Name ?? "Uncategorized");
+                            <h3 class="fw-bold mb-0 text-gradient" style="color: var(--text-primary);">Our Collection</h3>
+                            <p class="small mb-0 text-muted">Discover premium high-tech gadgets and office equipment at unbeatable
+                                prices.</p>
+                            }
+                        </div>
 
-                            @foreach (var categoryGroup in productsByCategory)
+                        <!-- Product Grid Catalog -->
+                        @if (Model.Products.Any())
+                        {
+                            @if (!Model.SelectedCategoryId.HasValue)
                             {
-                                <div class="category-section mb-5" data-category="@categoryGroup.Key">
-                                    <!-- Group Header -->
-                                    <h4 class="fw-bold mb-3 mt-2" style="color: var(--text-primary);">
-                                        <i class="fas fa-folder-open me-2 text-warning"></i>@categoryGroup.Key
-                                    </h4>
-                                    <!-- Products Grid -->
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                                        @foreach (var product in categoryGroup.OrderBy(p => p.Name))
-                                        {
-                                            <div class="col product-card-wrapper">
-                                                <div class="card h-100 product-card border-0 position-relative" data-product-name="@product.Name"
-                                                     data-product-description="@product.Description">
+                                <!-- Standard Flat Catalog Layout -->
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="productsContainer">
+                                    @foreach (var product in Model.Products)
+                                    {
+                                        <div class="col product-card-wrapper">
+                                            <div class="card h-100 product-card border-0 position-relative" data-product-name="@product.Name"
+                                                 data-product-description="@product.Description">
 
-                                                    <!-- Product Image -->
-                                                    <div class="product-image-wrapper ratio ratio-4x3 overflow-hidden"
-                                                         style="background: var(--bg-tertiary);">
-                                                        @if (!string.IsNullOrEmpty(product.ImageUrl))
-                                                        {
-                                                            <img src="@product.ImageUrl" class="object-fit-cover" alt="@product.Name"
-                                                                 onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted fs-2\' style=\'background: var(--bg-tertiary);\'><i class=\'fas fa-box\'></i></div>';" />
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="d-flex align-items-center justify-content-center fs-2"
-                                                                 style="background: var(--bg-tertiary); color: var(--text-muted);">
-                                                                <i class="fas fa-box"></i>
-                                                            </div>
-                                                        }
-                                                    </div>
+                                                <!-- Product Image -->
+                                                <div class="product-image-wrapper ratio ratio-4x3 overflow-hidden"
+                                                     style="background: var(--bg-tertiary);">
+                                                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                                    {
+                                                        <img src="@product.ImageUrl" class="object-fit-cover" alt="@product.Name"
+                                                             onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted fs-2\' style=\'background: var(--bg-tertiary);\'><i class=\'fas fa-box\'></i></div>';" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="d-flex align-items-center justify-content-center fs-2"
+                                                             style="background: var(--bg-tertiary); color: var(--text-muted);">
+                                                            <i class="fas fa-box"></i>
+                                                        </div>
+                                                    }
+                                                </div>
 
-                                                    <!-- Stock Status Indicator Badge -->
-                                                    <div class="position-absolute" style="top: 12px; right: 12px; z-index: 10;">
-                                                        @if (product.StockQuantity > 0)
-                                                        {
-                                                            <span class="product-stock stock-in">
-                                                                <i class="fas fa-check-circle"></i> In Stock
-                                                            </span>
-                                                        }
-                                                        else
-                                                        {
-                                                            <span class="product-stock stock-out">
-                                                                <i class="fas fa-times-circle"></i> Out of Stock
-                                                            </span>
-                                                        }
-                                                    </div>
+                                                <!-- Stock Status Indicator Badge -->
+                                                <div class="position-absolute" style="top: 12px; right: 12px; z-index: 10;">
+                                                    @if (product.StockQuantity > 0)
+                                                    {
+                                                        <span class="product-stock stock-in">
+                                                            <i class="fas fa-check-circle"></i> In Stock
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="product-stock stock-out">
+                                                            <i class="fas fa-times-circle"></i> Out of Stock
+                                                        </span>
+                                                    }
+                                                </div>
 
-                                                    <!-- Product Description Body -->
-                                                    <div class="card-body d-flex flex-column">
-                                                        <h6 class="product-name text-truncate" title="@product.Name">@product.Name</h6>
-                                                        <p class="product-description flex-grow-1"
-                                                           style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                                            @product.Description
-                                                        </p>
+                                                <!-- Product Description Body -->
+                                                <div class="card-body d-flex flex-column">
+                                                    <h6 class="product-name text-truncate" title="@product.Name">@product.Name</h6>
+                                                    <p class="product-description flex-grow-1"
+                                                       style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                                        @product.Description
+                                                    </p>
 
-                                                        <div class="mt-auto">
-                                                            <div class="product-price mb-3">
-                                                                $@product.Price.ToString("F2")
-                                                            </div>
-                                                            <div class="product-actions">
-                                                                <a class="btn btn-outline-primary btn-sm flex-grow-1 py-2 fw-semibold"
-                                                                   asp-action="ProductDetails" asp-route-id="@product.Id">
-                                                                    <i class="fas fa-eye me-1"></i>View
-                                                                </a>
-                                                                @if (product.StockQuantity > 0 && User.Identity?.IsAuthenticated == true)
-                                                                {
-                                                                    <button type="button" class="btn btn-success btn-sm px-3 py-2 fw-semibold"
-                                                                            onclick="addToCartAjax(@product.Id)" title="Add to Cart">
-                                                                        <i class="fas fa-cart-plus"></i>
-                                                                    </button>
-                                                                }
-                                                            </div>
+                                                    <div class="mt-auto">
+                                                        <div class="product-price mb-3">
+                                                            $@product.Price.ToString("F2")
+                                                        </div>
+                                                        <div class="product-actions">
+                                                            <a class="btn btn-outline-primary btn-sm flex-grow-1 py-2 fw-semibold"
+                                                               asp-action="ProductDetails" asp-route-id="@product.Id">
+                                                                <i class="fas fa-eye me-1"></i>View
+                                                            </a>
+                                                            @if (product.StockQuantity > 0 && User.Identity?.IsAuthenticated == true)
+                                                            {
+                                                                <button type="button" class="btn btn-success btn-sm px-3 py-2 fw-semibold"
+                                                                        onclick="addToCartAjax(@product.Id)" title="Add to Cart">
+                                                                    <i class="fas fa-cart-plus"></i>
+                                                                </button>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        }
-                                    </div>
+                                        </div>
+                                    }
                                 </div>
                             }
-                        }
+                            else
+                            {
+                                <!-- Category-Specific Structured Catalog -->
+                                var productsByCategory = Model.Products.GroupBy(p => p.Category?.Name ?? "Uncategorized");
 
-                        <!-- Premium Numbered Pagination Links -->
-                        @if (Model.ViewMode == "pages" && Model.TotalPages > 1)
-                        {
-                            <nav aria-label="Product Catalog Pagination" class="d-flex justify-content-center mt-5">
-                                <ul class="pagination pagination-md gap-1">
-                                    <!-- First Page -->
-                                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                                        <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center"
-                                           href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = 1 })"
-                                           style="width: 40px; height: 40px; color: var(--text-primary); background: var(--bg-card); transition: all 0.2s;">
-                                            <i class="fas fa-angle-double-left"></i>
-                                        </a>
-                                    </li>
+                                @foreach (var categoryGroup in productsByCategory)
+                                {
+                                    <div class="category-section mb-5" data-category="@categoryGroup.Key">
+                                        <!-- Group Header -->
+                                        <h4 class="fw-bold mb-3 mt-2" style="color: var(--text-primary);">
+                                            <i class="fas fa-folder-open me-2 text-warning"></i>@categoryGroup.Key
+                                        </h4>
+                                        <!-- Products Grid -->
+                                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                                            @foreach (var product in categoryGroup.OrderBy(p => p.Name))
+                                            {
+                                                <div class="col product-card-wrapper">
+                                                    <div class="card h-100 product-card border-0 position-relative" data-product-name="@product.Name"
+                                                         data-product-description="@product.Description">
 
-                                    <!-- Previous Page -->
-                                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                                        <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center"
-                                           href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = Model.CurrentPage - 1 })"
-                                           style="width: 40px; height: 40px; color: var(--text-primary); background: var(--bg-card); transition: all 0.2s;">
-                                            <i class="fas fa-angle-left"></i>
-                                        </a>
-                                    </li>
+                                                        <!-- Product Image -->
+                                                        <div class="product-image-wrapper ratio ratio-4x3 overflow-hidden"
+                                                             style="background: var(--bg-tertiary);">
+                                                            @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                                            {
+                                                                <img src="@product.ImageUrl" class="object-fit-cover" alt="@product.Name"
+                                                                     onerror="this.outerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted fs-2\' style=\'background: var(--bg-tertiary);\'><i class=\'fas fa-box\'></i></div>';" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="d-flex align-items-center justify-content-center fs-2"
+                                                                     style="background: var(--bg-tertiary); color: var(--text-muted);">
+                                                                    <i class="fas fa-box"></i>
+                                                                </div>
+                                                            }
+                                                        </div>
 
-                                    <!-- Page Numbers -->
-                                    @for (int i = 1; i <= Model.TotalPages; i++)
-                                    {
-                                        <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
-                                            <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center fw-bold"
-                                               href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = i })"
-                                               style="width: 40px; height: 40px; transition: all 0.2s; @(Model.CurrentPage == i ? "background: var(--accent-1); color: white;" : "color: var(--text-primary); background: var(--bg-card);")">
-                                                @i
+                                                        <!-- Stock Status Indicator Badge -->
+                                                        <div class="position-absolute" style="top: 12px; right: 12px; z-index: 10;">
+                                                            @if (product.StockQuantity > 0)
+                                                            {
+                                                                <span class="product-stock stock-in">
+                                                                    <i class="fas fa-check-circle"></i> In Stock
+                                                                </span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="product-stock stock-out">
+                                                                    <i class="fas fa-times-circle"></i> Out of Stock
+                                                                </span>
+                                                            }
+                                                        </div>
+
+                                                        <!-- Product Description Body -->
+                                                        <div class="card-body d-flex flex-column">
+                                                            <h6 class="product-name text-truncate" title="@product.Name">@product.Name</h6>
+                                                            <p class="product-description flex-grow-1"
+                                                               style="min-height: 40px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                                                @product.Description
+                                                            </p>
+
+                                                            <div class="mt-auto">
+                                                                <div class="product-price mb-3">
+                                                                    $@product.Price.ToString("F2")
+                                                                </div>
+                                                                <div class="product-actions">
+                                                                    <a class="btn btn-outline-primary btn-sm flex-grow-1 py-2 fw-semibold"
+                                                                       asp-action="ProductDetails" asp-route-id="@product.Id">
+                                                                        <i class="fas fa-eye me-1"></i>View
+                                                                    </a>
+                                                                    @if (product.StockQuantity > 0 && User.Identity?.IsAuthenticated == true)
+                                                                    {
+                                                                        <button type="button" class="btn btn-success btn-sm px-3 py-2 fw-semibold"
+                                                                                onclick="addToCartAjax(@product.Id)" title="Add to Cart">
+                                                                            <i class="fas fa-cart-plus"></i>
+                                                                        </button>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                            <!-- Premium Numbered Pagination Links -->
+                            @if (Model.ViewMode == "pages" && Model.TotalPages > 1)
+                            {
+                                <nav aria-label="Product Catalog Pagination" class="d-flex justify-content-center mt-5">
+                                    <ul class="pagination pagination-md gap-1">
+                                        <!-- First Page -->
+                                        <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                                            <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center"
+                                               href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = 1 })"
+                                               style="width: 40px; height: 40px; color: var(--text-primary); background: var(--bg-card); transition: all 0.2s;">
+                                                <i class="fas fa-angle-double-left"></i>
                                             </a>
                                         </li>
-                                    }
 
-                                    <!-- Next Page -->
-                                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
-                                        <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center"
-                                           href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = Model.CurrentPage + 1 })"
-                                           style="width: 40px; height: 40px; color: var(--text-primary); background: var(--bg-card); transition: all 0.2s;">
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
-                                    </li>
+                                        <!-- Previous Page -->
+                                        <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                                            <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center"
+                                               href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = Model.CurrentPage - 1 })"
+                                               style="width: 40px; height: 40px; color: var(--text-primary); background: var(--bg-card); transition: all 0.2s;">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
 
-                                    <!-- Last Page -->
-                                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
-                                        <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center"
-                                           href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = Model.TotalPages })"
-                                           style="width: 40px; height: 40px; color: var(--text-primary); background: var(--bg-card); transition: all 0.2s;">
-                                            <i class="fas fa-angle-double-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                        <!-- Page Numbers -->
+                                        @for (int i = 1; i <= Model.TotalPages; i++)
+                                        {
+                                            <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                                                <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center fw-bold"
+                                                   href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = i })"
+                                                   style="width: 40px; height: 40px; transition: all 0.2s; @(Model.CurrentPage == i ? "background: var(--accent-1); color: white;" : "color: var(--text-primary); background: var(--bg-card);")">
+                                                    @i
+                                                </a>
+                                            </li>
+                                        }
+
+                                        <!-- Next Page -->
+                                        <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                                            <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center"
+                                               href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = Model.CurrentPage + 1 })"
+                                               style="width: 40px; height: 40px; color: var(--text-primary); background: var(--bg-card); transition: all 0.2s;">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+
+                                        <!-- Last Page -->
+                                        <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                                            <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center"
+                                               href="@Url.Action("Index", "Home", new { categoryId = Model.SelectedCategoryId, search = Model.SearchTerm, sort = ViewData["CurrentSort"], viewMode = Model.ViewMode, page = Model.TotalPages })"
+                                               style="width: 40px; height: 40px; color: var(--text-primary); background: var(--bg-card); transition: all 0.2s;">
+                                                <i class="fas fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            }
                         }
-                    }
-                    else
-                    {
-                        <div class="text-center py-5 rounded-3 animate-fade-in-up"
-                             style="background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
-                            <i class="fas fa-box-open display-1 mb-3" style="color: var(--text-muted);"></i>
-                            <h4 class="fw-bold" style="color: var(--text-primary);">No products available</h4>
-                            <p class="mb-0" style="color: var(--text-muted);">Our product catalog is currently empty. Please check back
-                                later!</p>
-                            </div>
-                        }
+                        else
+                        {
+                            <div class="text-center py-5 rounded-3 animate-fade-in-up"
+                                 style="background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
+                                <i class="fas fa-box-open display-1 mb-3" style="color: var(--text-muted);"></i>
+                                <h4 class="fw-bold" style="color: var(--text-primary);">No products available</h4>
+                                <p class="mb-0" style="color: var(--text-muted);">Our product catalog is currently empty. Please check back
+                                    later!</p>
+                                </div>
+                            }
 
-                        <!-- No Search Results Found Banner -->
-                        <div id="noResults" class="text-center py-5 animate-fade-in-up"
-                             style="display: none; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
-                            <i class="fas fa-search display-2 mb-3" style="color: var(--text-muted);"></i>
-                            <h4 class="fw-bold" style="color: var(--text-primary);">No products match your search</h4>
-                            <p class="mb-0" style="color: var(--text-muted);">Try typing a different keyword or browse through the
-                                categories on the left.</p>
+                            <!-- No Search Results Found Banner -->
+                            <div id="noResults" class="text-center py-5 animate-fade-in-up"
+                                 style="display: none; background: var(--bg-card); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
+                                <i class="fas fa-search display-2 mb-3" style="color: var(--text-muted);"></i>
+                                <h4 class="fw-bold" style="color: var(--text-primary);">No products match your search</h4>
+                                <p class="mb-0" style="color: var(--text-muted);">Try typing a different keyword or browse through the
+                                    categories on the left.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    @section Scripts {
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                const searchInput = document.getElementById('searchInput');
-                                const productWrappers = document.querySelectorAll('.product-card-wrapper');
-                                const categorySections = document.querySelectorAll('.category-section');
-                                const noResults = document.getElementById('noResults');
-                                const resultsCount = document.getElementById('resultsCount');
+                        @section Scripts {
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const searchInput = document.getElementById('searchInput');
+                                    const productWrappers = document.querySelectorAll('.product-card-wrapper');
+                                    const categorySections = document.querySelectorAll('.category-section');
+                                    const noResults = document.getElementById('noResults');
+                                    const resultsCount = document.getElementById('resultsCount');
 
-                                // Handle client-side search filtering
-                                searchInput.addEventListener('input', function (e) {
-                                    const searchTerm = e.target.value.toLowerCase().trim();
-                                    let visibleProducts = 0;
+                                    // Handle client-side search filtering
+                                    searchInput.addEventListener('input', function (e) {
+                                        const searchTerm = e.target.value.toLowerCase().trim();
+                                        let visibleProducts = 0;
 
-                                    // Filter standard flat product list items
-                                    productWrappers.forEach(wrapper => {
-                                        const card = wrapper.querySelector('.product-card');
-                                        const productName = card.getAttribute('data-product-name').toLowerCase();
-                                        const productDescription = card.getAttribute('data-product-description').toLowerCase();
+                                        // Filter standard flat product list items
+                                        productWrappers.forEach(wrapper => {
+                                            const card = wrapper.querySelector('.product-card');
+                                            const productName = card.getAttribute('data-product-name').toLowerCase();
+                                            const productDescription = card.getAttribute('data-product-description').toLowerCase();
 
-                                        if (productName.includes(searchTerm) || productDescription.includes(searchTerm)) {
-                                            wrapper.style.display = 'block';
-                                            visibleProducts++;
-                                        } else {
-                                            wrapper.style.display = 'none';
-                                        }
-                                    });
+                                            if (productName.includes(searchTerm) || productDescription.includes(searchTerm)) {
+                                                wrapper.style.display = 'block';
+                                                visibleProducts++;
+                                            } else {
+                                                wrapper.style.display = 'none';
+                                            }
+                                        });
 
-                                    // In case of category sections, show/hide sections based on child visibility
-                                    if (categorySections.length > 0) {
-                                        categorySections.forEach(section => {
-                                            const innerCards = section.querySelectorAll('.product-card-wrapper');
-                                            let visibleInSection = 0;
+                                        // In case of category sections, show/hide sections based on child visibility
+                                        if (categorySections.length > 0) {
+                                            categorySections.forEach(section => {
+                                                const innerCards = section.querySelectorAll('.product-card-wrapper');
+                                                let visibleInSection = 0;
 
-                                            innerCards.forEach(wrapper => {
-                                                const card = wrapper.querySelector('.product-card');
-                                                const productName = card.getAttribute('data-product-name').toLowerCase();
-                                                const productDescription = card.getAttribute('data-product-description').toLowerCase();
+                                                innerCards.forEach(wrapper => {
+                                                    const card = wrapper.querySelector('.product-card');
+                                                    const productName = card.getAttribute('data-product-name').toLowerCase();
+                                                    const productDescription = card.getAttribute('data-product-description').toLowerCase();
 
-                                                if (productName.includes(searchTerm) || productDescription.includes(searchTerm)) {
-                                                    wrapper.style.display = 'block';
-                                                    visibleInSection++;
-                                                    visibleProducts++;
+                                                    if (productName.includes(searchTerm) || productDescription.includes(searchTerm)) {
+                                                        wrapper.style.display = 'block';
+                                                        visibleInSection++;
+                                                        visibleProducts++;
+                                                    } else {
+                                                        wrapper.style.display = 'none';
+                                                    }
+                                                });
+
+                                                if (visibleInSection > 0) {
+                                                    section.style.display = 'block';
                                                 } else {
-                                                    wrapper.style.display = 'none';
+                                                    section.style.display = 'none';
                                                 }
                                             });
 
-                                            if (visibleInSection > 0) {
-                                                section.style.display = 'block';
-                                            } else {
-                                                section.style.display = 'none';
-                                            }
-                                        });
+                                            // Re-calculate unique visible count since category-wise layout has parallel increment
+                                            const totalCards = document.querySelectorAll('.product-card');
+                                            let actualVisible = 0;
+                                            totalCards.forEach(c => {
+                                                const wrapper = c.closest('.product-card-wrapper');
+                                                if (wrapper && wrapper.style.display !== 'none') {
+                                                    actualVisible++;
+                                                }
+                                            });
+                                            visibleProducts = actualVisible;
+                                        }
 
-                                        // Re-calculate unique visible count since category-wise layout has parallel increment
-                                        const totalCards = document.querySelectorAll('.product-card');
-                                        let actualVisible = 0;
-                                        totalCards.forEach(c => {
-                                            const wrapper = c.closest('.product-card-wrapper');
-                                            if (wrapper && wrapper.style.display !== 'none') {
-                                                actualVisible++;
-                                            }
-                                        });
-                                        visibleProducts = actualVisible;
-                                    }
+                                        // Update count text labels
+                                        if (searchTerm === '') {
+                                            resultsCount.textContent = 'Showing all products';
+                                        } else {
+                                            resultsCount.textContent = `Found ${visibleProducts} product${visibleProducts !== 1 ? 's' : ''} matching "${searchTerm}"`;
+                                        }
 
-                                    // Update count text labels
-                                    if (searchTerm === '') {
-                                        resultsCount.textContent = 'Showing all products';
-                                    } else {
-                                        resultsCount.textContent = `Found ${visibleProducts} product${visibleProducts !== 1 ? 's' : ''} matching "${searchTerm}"`;
-                                    }
+                                        // Show/hide zero-results banner
+                                        if (visibleProducts === 0) {
+                                            noResults.style.display = 'block';
+                                            const container = document.getElementById('productsContainer');
+                                            if (container) container.style.display = 'none';
+                                        } else {
+                                            noResults.style.display = 'none';
+                                            const container = document.getElementById('productsContainer');
+                                            if (container) container.style.display = 'flex';
+                                        }
+                                    });
 
-                                    // Show/hide zero-results banner
-                                    if (visibleProducts === 0) {
-                                        noResults.style.display = 'block';
-                                        const container = document.getElementById('productsContainer');
-                                        if (container) container.style.display = 'none';
-                                    } else {
-                                        noResults.style.display = 'none';
-                                        const container = document.getElementById('productsContainer');
-                                        if (container) container.style.display = 'flex';
-                                    }
+                                    // Also support press Enter to trigger server-side query with state preservation
+                                    searchInput.addEventListener('keydown', function (e) {
+                                        if (e.key === 'Enter') {
+                                            const searchTerm = e.target.value.trim();
+                                            const url = new URL(window.location.href);
+                                            url.searchParams.set('search', searchTerm);
+                                            url.searchParams.set('page', '1'); // reset page
+                                            window.location.href = url.toString();
+                                        }
+                                    });
                                 });
-
-                                // Also support press Enter to trigger server-side query with state preservation
-                                searchInput.addEventListener('keydown', function (e) {
-                                    if (e.key === 'Enter') {
-                                        const searchTerm = e.target.value.trim();
-                                        const url = new URL(window.location.href);
-                                        url.searchParams.set('search', searchTerm);
-                                        url.searchParams.set('page', '1'); // reset page
-                                        window.location.href = url.toString();
-                                    }
-                                });
-                            });
-                        </script>
-                    }
+                            </script>
+                        }

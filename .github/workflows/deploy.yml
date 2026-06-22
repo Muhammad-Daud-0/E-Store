@@ -1,0 +1,36 @@
+name: Deploy .NET 8 App to MonsterASP
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET 8 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Publish Application
+      run: dotnet publish -c Release -o ./publish
+    
+    - name: Delete locked DLL
+      run: |
+          curl -v "ftp://site75763:${{ secrets.MONSTERASP_FTP_PASSWORD }}@site75763.siteasp.net/wwwroot/EStore.dll" -Q "DELE wwwroot/EStore.dll"
+      continue-on-error: true
+    
+    - name: Deploy via FTP to MonsterASP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: site75763.siteasp.net  
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./publish/
+        server-dir: /wwwroot/      
