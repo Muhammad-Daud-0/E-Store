@@ -31,7 +31,7 @@ jobs:
       with:
         server: site75763.siteasp.net
         username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.MONSTERASP_FTP_PASSWORD }}
+        password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./publish/
         server-dir: /wwwroot/
         protocol: ftps
