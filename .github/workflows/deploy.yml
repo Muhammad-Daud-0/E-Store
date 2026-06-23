@@ -46,7 +46,3 @@ jobs:
         protocol: ftps
         port: 21
         security: loose
-        log-level: verbose-
-        exclude: |
-          runtimes/**
-          EStore
