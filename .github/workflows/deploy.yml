@@ -19,11 +19,20 @@ jobs:
         dotnet-version: '8.0.x'
     
     - name: Publish Application
-      run: dotnet publish -c Release -o ./publish
+      run: dotnet publish EStore.csproj -c Release -o ./publish
 
-    - name: Delete locked DLL
+    - name: Delete locked DLL on server
       run: |
-        curl -v "ftp://${{ secrets.FTP_USERNAME }}:${{ secrets.MONSTERASP_FTP_PASSWORD }}@site75763.siteasp.net/wwwroot/EStore.dll" -Q "DELE wwwroot/EStore.dll"
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq lftp
+        lftp -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" site75763.siteasp.net <<EOF
+        set ssl:verify-certificate no
+        set ftp:ssl-force true
+        set ftp:ssl-protect-data true
+        cd /wwwroot
+        rm -f EStore.dll
+        bye
+        EOF
       continue-on-error: true
 
     - name: Deploy via FTP to MonsterASP
@@ -37,7 +46,7 @@ jobs:
         protocol: ftps
         port: 21
         security: loose
-        log-level: verbose
+        log-level: verbose-
         exclude: |
           runtimes/**
           EStore
